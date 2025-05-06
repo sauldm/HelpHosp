@@ -9,7 +9,7 @@ import Estadisticas from '../pages/Estadisticas';
 const Rutas = ()=>{
     return(
         <Routes>
-            <Route path="/pedidos" element={<Pedidos/>} />
+            <Route path="/" element={<Pedidos/>} />
             <Route path="/pagos" element={<Pagos/>} />
             <Route path="/estadisticas" element={<Estadisticas/>} />
         </Routes>
