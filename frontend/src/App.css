@@ -28,7 +28,7 @@
   background-color: #575757;
 }
 
-.pagina {
+.contenedor {
   display: flex;
 }
 
@@ -49,4 +49,15 @@
 
 a {
   text-decoration: none;
+}
+
+header {
+  display: flex;
+  border: solid black 1px;
+  align-items: center;
+  justify-content: center;
+}
+
+header p {
+  margin: 20px;
 }

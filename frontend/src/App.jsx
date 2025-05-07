@@ -1,13 +1,18 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Rutas from './components/Rutas';
+import { BrowserRouter as Router } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Rutas from "./components/Rutas";
 import "./App.css";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className='contenedor'>
+    <div className="pagina">
       <Router>
-        <Rutas/>
+        <Header />
+        <div className="contenedor">
+          <Navbar />
+          <Rutas />
+        </div>
       </Router>
     </div>
   );

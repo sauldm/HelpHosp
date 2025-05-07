@@ -1,14 +1,12 @@
 import Navbar from "../components/Navbar";
 
 function Estadisticas() {
-  return(
+  return (
     <div className="pagina">
-      <Navbar/>
-      <h1>Estadisticas</h1><p>Contenido pendiente de implementar.</p>
+      <h1>Estadisticas</h1>
+      <p>Contenido pendiente de implementar.</p>
     </div>
-
-  )
-   
+  );
 }
 
 export default Estadisticas;

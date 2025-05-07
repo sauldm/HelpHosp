@@ -10,7 +10,6 @@ function Pedidos() {
   return (
     <>
       <div className="pagina">
-        <Navbar />
         <Pedido pedido={pedido}></Pedido>
       </div>
     </>
