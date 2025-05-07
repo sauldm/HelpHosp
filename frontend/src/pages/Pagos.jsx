@@ -1,13 +1,13 @@
 import Navbar from "../components/Navbar";
+import Pedido from "../components/Pedido";
 
-function Pagos() {
+const Pagos = () => {
   return (
-    <div className="pagina">
-      <Navbar/>
-      <h1>Pagos</h1><p>Contenido pendiente de implementar.</p>
-    </div>
-
-  )
-}
+    <>
+      <Navbar />
+      <h1 className="pagina">hola</h1>
+    </>
+  );
+};
 
 export default Pagos;

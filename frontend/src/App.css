@@ -1,35 +1,33 @@
-
-
 .navbar {
-    width: 200px;  /* Ancho de la barra */
-    background-color: #333;  /* Fondo oscuro */
-    height: 100vh;  /* Altura completa de la pantalla */
-    top: 0;
-    left: 0;
+  width: 200px; /* Ancho de la barra */
+  background-color: #333; /* Fondo oscuro */
+  height: 100vh; /* Altura completa de la pantalla */
+  top: 0;
+  left: 0;
 }
 
 .navbar ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .navbar ul li {
-    margin: 20px 0;  /* Espaciado entre los elementos */
+  margin: 20px 0; /* Espaciado entre los elementos */
 }
 
 .navbar ul li a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
 }
 
 .navbar ul li a:hover {
-    background-color: #575757;  /* Cambio de color cuando se pasa el ratón */
+  background-color: #575757; /* Cambio de color cuando se pasa el ratón */
 }
 
-.pagina{
-    display: flex;
+.pagina {
+  display: flex;
 }

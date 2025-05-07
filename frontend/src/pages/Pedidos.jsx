@@ -1,15 +1,20 @@
 import Navbar from "../components/Navbar";
+import Pedido from "../components/Pedido";
 
 function Pedidos() {
-  return(
-    <div className="pagina">
-        <Navbar/>
-        <h1>Pedidos</h1><p>Contenido pendiente de implementar.</p>
-    </div>
+  let pedido = {
+    id: 1,
+    numero: 2,
+  };
 
-
-  )
-  
+  return (
+    <>
+      <div className="pagina">
+        <Navbar />
+        <Pedido pedido={pedido}></Pedido>
+      </div>
+    </>
+  );
 }
 
 export default Pedidos;
