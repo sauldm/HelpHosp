@@ -8,7 +8,7 @@ function Navbar() {
           <Link to="/">Pedidos</Link>
         </li>
         <li>
-          <Link to="/estadisticas">Estadísticas</Link>
+          <Link to="/sesion">Sesión</Link>
         </li>
       </ul>
     </nav>

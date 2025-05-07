@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import Pedidos from "../pages/Pedidos";
-import Estadisticas from "../pages/Estadisticas";
 import PedidoDetalle from "./PedidoDetalle";
+import Sesion from "../pages/Sesion";
 
 const Rutas = () => {
   return (
     <Routes>
       <Route path="/" element={<Pedidos />} />
-      <Route path="/estadisticas" element={<Estadisticas />} />
+      <Route path="/sesion" element={<Sesion />} />
       <Route path="/pedido" element={<PedidoDetalle />} />
     </Routes>
   );

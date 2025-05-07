@@ -1,7 +1,11 @@
+* {
+  overflow: hidden;
+}
+
 .navbar {
   width: 200px;
   background-color: #333;
-  height: 100vh;
+  height: 100dvh;
   top: 0;
   left: 0;
 }
@@ -28,8 +32,9 @@
   background-color: #575757;
 }
 
-.contenedor {
+.body {
   display: flex;
+  overflow-y: auto;
 }
 
 .pedido {
@@ -60,4 +65,22 @@ header {
 
 header p {
   margin: 20px;
+}
+
+.contenido {
+  width: 100vw;
+  border: rgb(206, 199, 199) 40px solid;
+}
+
+.empleados {
+  border: solid black 1px;
+  padding: 10px;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.empleados p {
+  padding: 10px;
 }

@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import Pedido from "../components/Pedido";
 
 function Pedidos() {
