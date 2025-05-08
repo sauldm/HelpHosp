@@ -1,9 +1,9 @@
 const Empleados = () => {
   return (
     <div className="empleados">
-      <p>ejemplo1</p>
-      <p>ejemplo2</p>
-      <p>ejemplo3</p>
+      <button>ejemplo1</button>
+      <button>ejemplo2</button>
+      <button>ejemplo3</button>
     </div>
   );
 };

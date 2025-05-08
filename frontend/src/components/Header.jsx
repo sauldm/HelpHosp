@@ -2,9 +2,9 @@ const Header = () => {
   return (
     <>
       <header>
-        <p>Teléfono</p>
-        <p>Terraza</p>
-        <p>Barra</p>
+        <button>Teléfono</button>
+        <button>Terraza</button>
+        <button>Barra</button>
       </header>
     </>
   );

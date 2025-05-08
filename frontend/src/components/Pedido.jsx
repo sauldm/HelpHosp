@@ -5,8 +5,10 @@ const Pedido = ({ pedido }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="pedido">
-      <button onClick={() => setIsModalOpen(true)}>{pedido.numero}</button>
+    <div>
+      <button className="btnPedido" onClick={() => setIsModalOpen(true)}>
+        {pedido.numero}
+      </button>
       <ModalPedido isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
         <p>ID: {pedido.id}</p>
         <p>Número: {pedido.numero}</p>
