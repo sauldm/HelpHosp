@@ -1,15 +1,14 @@
 import Modal from "react-modal";
 
-const ModalPedido = ({ isModalOpen, setIsModalOpen, children }) => {
+const ModalGeneral = ({ isModalOpen, setisModalOpen, children }) => {
   return (
     <>
       <Modal
         isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        contentLabel="Modal pedido"
+        onRequestClose={() => setisModalOpen(false)}
         style={{
           content: {
-            width: "300px",
+            width: "500px",
             height: "300px",
             margin: "auto",
             padding: "20px",
@@ -21,10 +20,10 @@ const ModalPedido = ({ isModalOpen, setIsModalOpen, children }) => {
         }}
       >
         {children}
-        <button onClick={() => setIsModalOpen(false)}>Cerrar</button>
+        <button onClick={() => setisModalOpen(false)}>Cerrar</button>
       </Modal>
     </>
   );
 };
 
-export default ModalPedido;
+export default ModalGeneral;

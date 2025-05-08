@@ -102,3 +102,10 @@ button:hover {
   background-color: rgb(192, 243, 168);
   transition: background-color 0.3s ease;
 }
+
+.productos button {
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+}

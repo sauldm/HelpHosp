@@ -1,15 +1,18 @@
 import { useState } from "react";
-import ModalPedido from "./ModalPedido";
+import ModalPedido from "./ModalGeneral";
 
 const Pedido = ({ pedido }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
 
   return (
     <div>
-      <button className="btnPedido" onClick={() => setIsModalOpen(true)}>
+      <button className="btnPedido" onClick={() => setisModalPedidoOpen(true)}>
         {pedido.numero}
       </button>
-      <ModalPedido isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+      <ModalPedido
+        isModalOpen={isModalPedidoOpen}
+        setisModalOpen={setisModalPedidoOpen}
+      >
         <p>ID: {pedido.id}</p>
         <p>Número: {pedido.numero}</p>
       </ModalPedido>
