@@ -1,5 +1,6 @@
 const Productos = () => {
   return (
+    //onClick añadir producto
     <>
       <div className="productos">
         <button>+</button>
