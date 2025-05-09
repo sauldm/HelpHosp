@@ -103,7 +103,8 @@ button:hover {
   transition: background-color 0.3s ease;
 }
 
-.productos button {
+.productos button,
+.terraza button {
   margin: 20px;
   padding: 10px 20px;
   font-size: 18px;

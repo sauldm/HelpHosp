@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ModalPedido from "./ModalGeneral";
 import { useNavigate } from "react-router-dom";
+import ModalGeneral from "./ModalGeneral";
 
 const Header = () => {
   const [isModalTelefonoOpen, setisModalTelefonoOpen] = useState(false);
@@ -9,7 +9,7 @@ const Header = () => {
     <>
       <header>
         <button onClick={() => setisModalTelefonoOpen(true)}>Teléfono</button>
-        <ModalPedido
+        <ModalGeneral
           isModalOpen={isModalTelefonoOpen}
           setisModalOpen={setisModalTelefonoOpen}
         >
@@ -22,10 +22,10 @@ const Header = () => {
           >
             Enviar
           </button>
-        </ModalPedido>
+        </ModalGeneral>
 
-        <button>Terraza</button>
-        <button>Barra</button>
+        <button onClick={() => navigate("/terraza")}>Terraza</button>
+        <button onClick={() => navigate("/barra")}>Barra</button>
       </header>
     </>
   );
