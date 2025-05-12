@@ -26,6 +26,12 @@ const Header = () => {
 
         <button onClick={() => navigate("/terraza")}>Terraza</button>
         <button onClick={() => navigate("/barra")}>Barra</button>
+        <button
+          className="anyadirProductos"
+          onClick={() => navigate("/anyadirProductos")}
+        >
+          +Productos
+        </button>
       </header>
     </>
   );
