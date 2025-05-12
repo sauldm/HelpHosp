@@ -1,39 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ModalGeneral from "./ModalGeneral";
+import { useLocation } from "react-router-dom";
+import HeaderProductos from "./HeaderProductos";
+import HeaderGeneral from "./HeaderGeneral";
 
 const Header = () => {
-  const [isModalTelefonoOpen, setisModalTelefonoOpen] = useState(false);
-  const navigate = useNavigate();
-  return (
-    <>
-      <header>
-        <button onClick={() => setisModalTelefonoOpen(true)}>Teléfono</button>
-        <ModalGeneral
-          isModalOpen={isModalTelefonoOpen}
-          setisModalOpen={setisModalTelefonoOpen}
-        >
-          <input type="text" />
-          <button
-            onClick={() => {
-              navigate("/productos");
-              setisModalTelefonoOpen(false);
-            }}
-          >
-            Enviar
-          </button>
-        </ModalGeneral>
+  const location = useLocation();
 
-        <button onClick={() => navigate("/terraza")}>Terraza</button>
-        <button onClick={() => navigate("/barra")}>Barra</button>
-        <button
-          className="anyadirProductos"
-          onClick={() => navigate("/anyadirProductos")}
-        >
-          +Productos
-        </button>
-      </header>
-    </>
+  return location.pathname === "/productos" ? (
+    <HeaderProductos />
+  ) : (
+    <HeaderGeneral />
   );
 };
 
