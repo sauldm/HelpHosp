@@ -5,21 +5,21 @@ const Empleados = () => {
 
   const manejarClick = (e) => {
     if (ultimoClicado) {
-      ultimoClicado.style.backgroundColor = " rgba(182, 177, 171, 0.301)";
+      ultimoClicado.classList.remove("empleado-activo");
     }
     setUltimoClicado(e.target);
-    e.target.style.backgroundColor = "red";
+    e.target.classList.add("empleado-activo");
   };
 
   return (
     <div className="empleados">
-      <button id="empleado1" onClick={manejarClick}>
+      <button id="empleado1" onClick={manejarClick} className="empleado-btn">
         ejemplo1
       </button>
-      <button id="empleado2" onClick={manejarClick}>
+      <button id="empleado2" onClick={manejarClick} className="empleado-btn">
         ejemplo2
       </button>
-      <button id="empleado3" onClick={manejarClick}>
+      <button id="empleado3" onClick={manejarClick} className="empleado-btn">
         ejemplo3
       </button>
     </div>
