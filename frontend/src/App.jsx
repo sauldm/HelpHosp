@@ -4,6 +4,7 @@ import "./App.css";
 import Empleados from "./components/Empleados";
 import Contenido from "./components/Contenido";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Contenido />
           <Empleados />
         </div>
+        <Footer />
       </Router>
     </div>
   );
