@@ -1,13 +1,15 @@
 * {
   overflow: hidden;
+  font-family: "Arial", sans-serif;
 }
 
 .navbar {
   width: 200px;
-  background-color: #333;
+  background: linear-gradient(to bottom, #2c3e50, #34495e);
   height: 100dvh;
   top: 0;
   left: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar ul {
@@ -25,20 +27,24 @@
   text-decoration: none;
   padding: 10px 20px;
   font-size: 18px;
+  transition: all 0.3s ease;
 }
 
 .navbar ul li a:hover {
-  background-color: #575757;
-  transition: background-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-left: 25px;
 }
 
 .body {
   display: flex;
   overflow-y: auto;
+  background-color: #f5f5f5;
 }
 
 button {
   border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btnPedido {
@@ -46,15 +52,20 @@ button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: rgb(175, 170, 170);
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
   font-size: 16px;
   text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btnPedido:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 a {
@@ -63,9 +74,11 @@ a {
 
 header {
   display: flex;
-  border: solid black 1px;
+  border: solid #ddd 1px;
   align-items: center;
   justify-content: center;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 header button {
@@ -73,20 +86,32 @@ header button {
   padding: 10px 20px;
   font-size: 18px;
   font-family: Arial, sans-serif;
+  background-color: #3498db;
+  color: white;
+  border-radius: 5px;
+}
+
+header button:hover {
+  background-color: #2980b9;
 }
 
 .contenido {
   width: 100vw;
-  border: rgb(206, 199, 199) 40px solid;
+  border: #eee 40px solid;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .empleados {
-  border: solid black 1px;
-  padding: 10px;
+  border: solid #ddd 1px;
+  padding: 15px;
   width: 200px;
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .empleados button {
@@ -94,12 +119,19 @@ header button {
   padding: 10px;
   width: 100%;
   border: none;
-  background-color: rgba(182, 177, 171, 0.301);
+  background-color: #f8f9fa;
   cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.empleados button:hover {
+  background-color: #e9ecef;
+  transform: translateX(5px);
 }
 
 button:hover {
-  background-color: rgb(192, 243, 168);
+  background-color: #2ecc71;
   transition: background-color 0.3s ease;
 }
 
@@ -109,4 +141,12 @@ button:hover {
   padding: 10px 20px;
   font-size: 18px;
   font-family: Arial, sans-serif;
+  background-color: #3498db;
+  color: white;
+  border-radius: 5px;
+}
+
+.productos button:hover,
+.terraza button:hover {
+  background-color: #2980b9;
 }
