@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "productos": [
+      {
+        "nombre": "york",
+        "precio": 6.85
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "productos": [
+      {
+        "nombre": "barbacoa",
+        "precio": 6.85
+      },
+      { "nombre": "york", "precio": 6.85 }
+    ]
+  },
+  {
+    "id": 3,
+    "productos": [
+      {
+        "nombre": "york",
+        "precio": 6.85
+      }
+    ]
+  }
+]

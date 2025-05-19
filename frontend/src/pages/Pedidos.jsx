@@ -1,3 +1,4 @@
+import ListaPedidos from "../components/ListaPedidos";
 import Pedido from "../components/Pedido";
 
 function Pedidos() {
@@ -9,7 +10,7 @@ function Pedidos() {
   return (
     <>
       <div className="pagina">
-        <Pedido pedido={pedido}></Pedido>
+        <ListaPedidos />
       </div>
     </>
   );

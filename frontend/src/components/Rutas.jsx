@@ -4,7 +4,6 @@ import Sesion from "../pages/Sesion";
 import Productos from "../pages/Productos";
 import Terraza from "../pages/Terraza";
 import Barra from "../pages/Barra";
-import AnyadirProductos from "./AnyadirProductos";
 
 const Rutas = () => {
   return (
@@ -14,7 +13,6 @@ const Rutas = () => {
       <Route path="/productos" element={<Productos />} />
       <Route path="/terraza" element={<Terraza />} />
       <Route path="/barra" element={<Barra />} />
-      <Route path="/anyadirProductos" element={<AnyadirProductos />} />
     </Routes>
   );
 };

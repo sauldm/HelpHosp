@@ -1,9 +1,16 @@
+import ListaProductos from "../components/ListaProductos";
+
 const Productos = () => {
   return (
-    //onClick añadir producto
     <>
       <div className="productos">
-        <button>+</button>
+        <button
+          className="btnProducto"
+          onClick={() => setisModalProductoOpen(true)}
+        >
+          +
+        </button>
+        <ListaProductos />
       </div>
     </>
   );
