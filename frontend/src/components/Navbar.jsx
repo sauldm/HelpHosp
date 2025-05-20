@@ -1,17 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import NavbarGeneral from "./NavbarGeneral";
+import BarraProductosParaPedido from "./BarraProductosParaPedido";
 
 function Navbar() {
-  return (
-    <nav className="navbar">
-      <ul>
-        <li>
-          <Link to="/">Pedidos</Link>
-        </li>
-        <li>
-          <Link to="/sesion">Sesión</Link>
-        </li>
-      </ul>
-    </nav>
+  const location = useLocation();
+  return location.pathname === "/productos" ? (
+    <BarraProductosParaPedido />
+  ) : (
+    <NavbarGeneral />
   );
 }
 
