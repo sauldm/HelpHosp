@@ -4,7 +4,8 @@
     "productos": [
       {
         "nombre": "york",
-        "precio": 6.85
+        "precio": 6.85,
+        "telefono": 625923024
       }
     ]
   },
@@ -16,7 +17,8 @@
         "precio": 6.85
       },
       { "nombre": "york", "precio": 6.85 }
-    ]
+    ],
+    "telefono": 625321768
   },
   {
     "id": 3,
@@ -25,6 +27,7 @@
         "nombre": "york",
         "precio": 6.85
       }
-    ]
+    ],
+    "telefono": 643562896
   }
 ]

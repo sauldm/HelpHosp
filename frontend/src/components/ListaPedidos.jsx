@@ -10,11 +10,11 @@ const ListaPedidos = () => {
   }, []);
   return (
     <>
-      {pedidos.map((pedido, index) => (
-        <div className="pedidos">
+      <div className="pedidos">
+        {pedidos.map((pedido, index) => (
           <Pedido pedido={pedido}></Pedido>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };

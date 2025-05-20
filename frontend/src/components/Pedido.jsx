@@ -15,12 +15,12 @@ const Pedido = ({ pedido }) => {
         setisModalOpen={setisModalPedidoOpen}
       >
         <p>ID: {pedido.id}</p>
-        <p>
+        <div>
           Número:{" "}
           {pedido.productos.map((producto, index) => (
-            <p>{producto.nombre}</p>
+            <>{producto.nombre} </>
           ))}
-        </p>
+        </div>
       </ModalGeneral>
     </div>
   );

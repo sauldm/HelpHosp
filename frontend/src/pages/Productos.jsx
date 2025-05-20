@@ -1,15 +1,15 @@
+import AnyadirProducto from "../components/AnyadirProducto";
 import ListaProductos from "../components/ListaProductos";
 
 const Productos = () => {
+  let producto = {
+    nombre: "york",
+    precio: 6.85,
+  };
   return (
     <>
       <div className="productos">
-        <button
-          className="btnProducto"
-          onClick={() => setisModalProductoOpen(true)}
-        >
-          +
-        </button>
+        <button className="btnProducto">+</button>
         <ListaProductos />
       </div>
     </>
