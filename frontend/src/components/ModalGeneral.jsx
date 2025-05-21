@@ -20,7 +20,9 @@ const ModalGeneral = ({ isModalOpen, setisModalOpen, children }) => {
         }}
       >
         {children}
-        <button onClick={() => setisModalOpen(false)}>Cerrar</button>
+        <button className="cerrarModal" onClick={() => setisModalOpen(false)}>
+          Cerrar
+        </button>
       </Modal>
     </>
   );

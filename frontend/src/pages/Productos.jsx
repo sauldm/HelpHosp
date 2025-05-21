@@ -1,16 +1,17 @@
-import AnyadirProducto from "../components/AnyadirProducto";
+import { useParams } from "react-router-dom";
 import ListaProductos from "../components/ListaProductos";
+import { useContext } from "react";
+import { ContextoPedidos } from "../components/contexto/ProveedorPedidos";
 
 const Productos = () => {
-  let producto = {
-    nombre: "york",
-    precio: 6.85,
-  };
+  const pedidos = useContext(ContextoPedidos);
+  const { telefono } = useParams();
+  const pedido = pedidos.telefono == telefono;
+
   return (
     <>
       <div className="productos">
-        <button className="btnProducto">+</button>
-        <ListaProductos />
+        <ListaProductos pedido={pedido} />
       </div>
     </>
   );

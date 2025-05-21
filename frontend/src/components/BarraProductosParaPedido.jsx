@@ -1,7 +1,7 @@
-const BarraProductosParaPedido = ({ producto }) => {
+const BarraProductosParaPedido = ({ productos, pedido }) => {
   return (
     <>
-      <div className="barraProductosPedido"></div>
+      <div className="barraProductosPedido">{}</div>
     </>
   );
 };

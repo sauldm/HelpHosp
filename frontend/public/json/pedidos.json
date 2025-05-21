@@ -4,21 +4,23 @@
     "productos": [
       {
         "nombre": "york",
-        "precio": 6.85,
-        "telefono": 625923024
+        "precio": 6.85
       }
-    ]
+    ],
+    "telefono": 666666666,
+    "nombreUsuario": "A"
   },
   {
     "id": 2,
     "productos": [
       {
-        "nombre": "barbacoa",
+        "nombre": "7.55",
         "precio": 6.85
       },
       { "nombre": "york", "precio": 6.85 }
     ],
-    "telefono": 625321768
+    "telefono": 625923024,
+    "nombreUsuario": "B"
   },
   {
     "id": 3,
@@ -28,6 +30,7 @@
         "precio": 6.85
       }
     ],
-    "telefono": 643562896
+    "telefono": 643562896,
+    "nombreUsuario": "C"
   }
 ]

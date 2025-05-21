@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModalGeneral from "./ModalGeneral";
+import { ContextoPedidos } from "./contexto/ProveedorPedidos";
 
 const HeaderGeneral = () => {
   const [isModalTelefonoOpen, setisModalTelefonoOpen] = useState(false);
+  const [telefono, setTelefono] = useState();
   const navigate = useNavigate();
+
   return (
     <>
       <header>
@@ -13,10 +16,19 @@ const HeaderGeneral = () => {
           isModalOpen={isModalTelefonoOpen}
           setisModalOpen={setisModalTelefonoOpen}
         >
-          <input type="text" />
+          Teléfono:{" "}
+          <input
+            type="text"
+            id="telefono"
+            onChange={(e) => setTelefono(e.target.value)}
+          />
           <button
+            className="enviarTelefono"
             onClick={() => {
-              navigate("/productos");
+              if (telefono.length == 9) {
+                navigate(`/productos/${telefono}`);
+                setisModalTelefonoOpen(false);
+              }
               setisModalTelefonoOpen(false);
             }}
           >
