@@ -26,7 +26,7 @@ const HeaderGeneral = () => {
             className="enviarTelefono"
             onClick={() => {
               if (telefono.length == 9) {
-                navigate(`/productos/${telefono}`);
+                navigate(`/productos?telefono=${telefono}`);
                 setisModalTelefonoOpen(false);
               }
               setisModalTelefonoOpen(false);

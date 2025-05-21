@@ -5,7 +5,7 @@ import HeaderGeneral from "./HeaderGeneral";
 const Header = () => {
   const location = useLocation();
 
-  return location.pathname === "/productos" ? (
+  return location.pathname.includes("/productos") ? (
     <HeaderProductos />
   ) : (
     <HeaderGeneral />
