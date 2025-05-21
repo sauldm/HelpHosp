@@ -16,9 +16,11 @@ const HeaderProductos = () => {
             Descartar
           </button>
         </div>
-        <header>
-          <button>Buscar</button>
-        </header>
+
+        <div className="medio">
+          <input type="text" name="buscar" id="buscar" />
+          <button name="btnBuscar">Buscar</button>
+        </div>
       </div>
     </>
   );

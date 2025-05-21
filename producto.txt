@@ -1,0 +1,2 @@
+producto:
+    nombre, precio, observaciones, ingredientes
