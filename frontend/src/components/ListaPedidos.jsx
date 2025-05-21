@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
-import data from "../json/pedidos.json";
+import { useContext, useEffect, useState } from "react";
 import Pedido from "./Pedido";
-import AnyadirProducto from "./AnyadirProducto";
+import { ContextoPedidos } from "./contexto/ProveedorPedidos";
 
 const ListaPedidos = () => {
-  const [pedidos, setPedidos] = useState([]);
+  const pedidos = useContext(ContextoPedidos);
 
-  useEffect(() => {
-    setPedidos(data);
-  }, []);
   return (
     <>
       <div className="pedidos">
         {pedidos.map((pedido, index) => (
-          <button onClick={() => <AnyadirProducto />}>
-            <Pedido key={index} pedido={pedido}></Pedido>
-          </button>
+          <Pedido key={index} pedido={pedido}></Pedido>
         ))}
       </div>
     </>

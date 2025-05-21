@@ -1,4 +1,4 @@
-const BarraProductosParaPedido = () => {
+const BarraProductosParaPedido = ({ producto }) => {
   return (
     <>
       <div className="barraProductosPedido"></div>

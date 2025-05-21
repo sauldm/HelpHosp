@@ -6,22 +6,25 @@ import Contenido from "./components/Contenido";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProveedorProductos from "./components/contexto/ProveedorProductos";
+import ProveedorPedidos from "./components/contexto/ProveedorPedidos";
 
 function App() {
   return (
-    <ProveedorProductos>
-      <div className="pagina">
-        <Router>
-          <Header />
-          <div className="body">
-            <Navbar />
-            <Contenido />
-            <Empleados />
-          </div>
-          <Footer />
-        </Router>
-      </div>
-    </ProveedorProductos>
+    <ProveedorPedidos>
+      <ProveedorProductos>
+        <div className="pagina">
+          <Router>
+            <Header />
+            <div className="body">
+              <Navbar />
+              <Contenido />
+              <Empleados />
+            </div>
+            <Footer />
+          </Router>
+        </div>
+      </ProveedorProductos>
+    </ProveedorPedidos>
   );
 }
 

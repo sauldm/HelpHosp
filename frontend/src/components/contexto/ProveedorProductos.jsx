@@ -6,7 +6,7 @@ const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    const fetchProductos = async () => {
+    const getProductos = async () => {
       const respuesta = await fetch("/json/productos.json");
       if (respuesta.ok) {
         const data = await respuesta.json();
@@ -15,7 +15,7 @@ const ProveedorProductos = ({ children }) => {
         console.log("error");
       }
     };
-    fetchProductos();
+    getProductos();
   }, []);
 
   return (
