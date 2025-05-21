@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import BuscarProducto from "./BuscarProducto";
 
 const HeaderProductos = () => {
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ const HeaderProductos = () => {
 
         <div className="medio">
           <input type="text" name="buscar" id="buscar" />
-          <button name="btnBuscar">Buscar</button>
+          <button name="btnBuscar" onClick={() => <BuscarProducto />}>
+            Buscar
+          </button>
         </div>
       </div>
     </>

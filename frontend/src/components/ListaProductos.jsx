@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import Producto from "./Producto";
+import { ContextoProductos } from "./contexto/ProveedorProductos";
 
 const ListaProductos = () => {
-  const [productos, setProductos] = useState([]);
+  const productos = useContext(ContextoProductos);
 
-  useEffect(() => {
-    const fetchProductos = async () => {
-      const respuesta = await fetch("../../json/productos.json");
-      if (respuesta.ok) {
-        const data = await respuesta.json();
-        setProductos(data);
-      } else {
-        console.log("error");
-      }
-    };
-    fetchProductos();
-  }, []);
   return (
     <>
       {productos.map((producto, index) => (

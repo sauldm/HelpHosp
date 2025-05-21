@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import data from "../json/pedidos.json";
 import Pedido from "./Pedido";
+import AnyadirProducto from "./AnyadirProducto";
 
 const ListaPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -12,7 +13,9 @@ const ListaPedidos = () => {
     <>
       <div className="pedidos">
         {pedidos.map((pedido, index) => (
-          <Pedido pedido={pedido}></Pedido>
+          <button onClick={() => <AnyadirProducto />}>
+            <Pedido key={index} pedido={pedido}></Pedido>
+          </button>
         ))}
       </div>
     </>
