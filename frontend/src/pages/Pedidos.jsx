@@ -1,16 +1,16 @@
+import Empleados from "../components/Empleados";
 import ListaPedidos from "../components/ListaPedidos";
-import Pedido from "../components/Pedido";
+import NavbarGeneral from "../components/NavbarGeneral";
 
 function Pedidos() {
-  let pedido = {
-    id: 1,
-    numero: 2,
-  };
-
   return (
     <>
-      <div className="pagina">
-        <ListaPedidos />
+      <div className="body">
+        <NavbarGeneral />
+        <div className="contenido">
+          <ListaPedidos />
+        </div>
+        <Empleados />
       </div>
     </>
   );

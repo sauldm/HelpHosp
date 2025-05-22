@@ -1,5 +1,4 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import "./App.css";
 import Empleados from "./components/Empleados";
 import Contenido from "./components/Contenido";
@@ -12,17 +11,13 @@ function App() {
   return (
     <ProveedorPedidos>
       <ProveedorProductos>
-        <div className="pagina">
-          <Router>
+        <Router>
+          <div className="pagina">
             <Header />
-            <div className="body">
-              <Navbar />
-              <Contenido />
-              <Empleados />
-            </div>
+            <Contenido />
             <Footer />
-          </Router>
-        </div>
+          </div>
+        </Router>
       </ProveedorProductos>
     </ProveedorPedidos>
   );

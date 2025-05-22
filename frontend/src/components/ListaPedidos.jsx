@@ -12,7 +12,7 @@ const ListaPedidos = () => {
     <>
       <div className="pedidos">
         {pedidos.map((pedido, index) => (
-          <>
+          <div key={index}>
             <button
               className="btnPedido"
               onClick={() => {
@@ -22,7 +22,7 @@ const ListaPedidos = () => {
             >
               {pedido.id}
             </button>
-          </>
+          </div>
         ))}
       </div>
       <ModalGeneral

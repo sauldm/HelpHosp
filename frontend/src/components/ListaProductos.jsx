@@ -3,30 +3,30 @@ import { useLocation } from "react-router-dom";
 import { ContextoProductos } from "./contexto/ProveedorProductos";
 import { ContextoPedidos } from "./contexto/ProveedorPedidos";
 
-const ListaProductos = () => {
-  const pedidos = useContext(ContextoPedidos);
+const ListaProductos = ({ pedido }) => {
   const productos = useContext(ContextoProductos);
-  const localizacion = useLocation();
-  const { search } = localizacion;
 
-  const params = new URLSearchParams(search);
-  const telefono = params.get("telefono");
-  const pedido = pedidos.find((pedido) => pedido.telefono == telefono);
+  if (productos.length == 0) {
+    return <p>Cargando</p>;
+  }
 
   return (
-    <>
+    <div className="productos">
       {productos.map((producto, index) => (
         <div key={index}>
           <button
             onClick={() => {
-              <>{pedido.productos.push(producto)}</>;
+              <>
+                {pedido.productos.push(producto)}
+                {console.log(pedido)}
+              </>;
             }}
           >
             <p>{producto.nombre}</p>
           </button>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

@@ -1,11 +1,7 @@
 import Rutas from "./Rutas";
 
 const Contenido = () => {
-  return (
-    <div className="contenido">
-      <Rutas />
-    </div>
-  );
+  return <Rutas />;
 };
 
 export default Contenido;

@@ -4,13 +4,15 @@ import Sesion from "../pages/Sesion";
 import Productos from "../pages/Productos";
 import Terraza from "../pages/Terraza";
 import Barra from "../pages/Barra";
+import InicioSesion from "../pages/InicioSesion";
 
 const Rutas = () => {
   return (
     <Routes>
-      <Route path="/" element={<Pedidos />} />
+      <Route path="/" element={<InicioSesion />} />
+      <Route path="/pedidos" element={<Pedidos />} />
       <Route path="/sesion" element={<Sesion />} />
-      <Route path="/productos" element={<Productos />} />
+      <Route path="/productos/:telefono" element={<Productos />} />
       <Route path="/terraza" element={<Terraza />} />
       <Route path="/barra" element={<Barra />} />
     </Routes>
