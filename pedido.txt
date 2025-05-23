@@ -1,2 +1,2 @@
 pedido:
-    id, teléfono, productos, nombreUsuario, domicilio, 
+    id, teléfono, productos, usuario, domicilio, 
