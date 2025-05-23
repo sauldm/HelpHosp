@@ -4,7 +4,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'], // Tu frontend React
+    'allowed_origins' => ['http://localhost:5173'], // Tu frontend React
 
     'allowed_origins_patterns' => [],
 
