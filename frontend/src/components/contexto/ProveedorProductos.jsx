@@ -7,7 +7,7 @@ const ProveedorProductos = ({ children }) => {
 
   useEffect(() => {
     const getProductos = async () => {
-      const respuesta = await fetch("/json/productos.json");
+      const respuesta = await fetch("http://127.0.0.1:8000/api/productos");
       if (respuesta.ok) {
         const data = await respuesta.json();
         setProductos(data);
