@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Producto;
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class PedidoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Producto::all();
+        return Pedido::all();
     }
 
     /**
@@ -21,17 +21,13 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-        ]);
-
-        return Producto::create($request->all());
+        return Pedido::create($request->all());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Producto $producto)
+    public function show(Pedido $producto)
     {
         return $producto;
     }
@@ -39,18 +35,17 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, Pedido $producto)
     {
-        $producto->update($request->all());
-        return $producto;
+        return $producto->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy(Pedido $producto)
     {
         $producto->delete();
-        return response()->json(['message' => 'Producto deleted successfully']);
+        return response()->json(['message' => 'Pedido deleted successfully']);
     }
 }

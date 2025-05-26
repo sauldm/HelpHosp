@@ -4,14 +4,18 @@ import Empleados from "../components/Empleados";
 import ListaProductos from "../components/ListaProductos";
 import { ContextoPedidos } from "../components/contexto/ProveedorPedidos";
 import { useParams } from "react-router-dom";
+import Cargando from "../components/Cargando";
 
 const Productos = () => {
   const pedidos = useContext(ContextoPedidos);
   const { telefono } = useParams();
-  console.log(telefono + pedidos);
 
   if (pedidos.length == 0) {
-    return <p>Cargando</p>;
+    return (
+      <div className="body">
+        <Cargando />
+      </div>
+    );
   }
   const pedido = pedidos.find((pedido) => pedido.telefono == telefono);
 

@@ -1,11 +1,13 @@
+import { useContext } from "react";
+import { ContextoProductos } from "./contexto/ProveedorProductos";
+
 const BarraProductosParaPedido = ({ pedido }) => {
+  if (!pedido) {
+    return <div className="barraProductosPedido"></div>;
+  }
   return (
     <>
-      <div className="barraProductosPedido">
-        {pedido.productos.map((producto) => (
-          <p key={producto.nombre}>{producto.nombre}</p>
-        ))}
-      </div>
+      <div className="barraProductosPedido">{pedido.id}</div>
     </>
   );
 };

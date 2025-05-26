@@ -7,7 +7,7 @@ const ProveedorPedidos = ({ children }) => {
 
   useEffect(() => {
     const getPedidos = async () => {
-      const respuesta = await fetch("/json/pedidos.json");
+      const respuesta = await fetch("http://127.0.0.1:8000/api/pedidos");
       if (respuesta.ok) {
         const data = await respuesta.json();
         setPedidos(data);

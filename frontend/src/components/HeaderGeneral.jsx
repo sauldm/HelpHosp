@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModalGeneral from "./ModalGeneral";
-import { ContextoPedidos } from "./contexto/ProveedorPedidos";
+import { useState } from "react";
 
 const HeaderGeneral = () => {
   const [isModalTelefonoOpen, setisModalTelefonoOpen] = useState(false);

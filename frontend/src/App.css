@@ -414,3 +414,11 @@ footer {
   color: #0d47a1;
   text-decoration: underline;
 }
+
+.cargando {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}

@@ -7,10 +7,10 @@ const Header = () => {
 
   if (location.pathname.includes("/productos")) {
     return <HeaderProductos />;
-  } else if (location.pathname.includes("/")) {
+  } else if (location.pathname == "/") {
     return <></>;
   } else {
-    <HeaderGeneral />;
+    return <HeaderGeneral />;
   }
 };
 

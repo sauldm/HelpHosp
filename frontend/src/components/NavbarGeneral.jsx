@@ -5,7 +5,7 @@ const NavbarGeneral = () => {
     <nav className="navbar">
       <ul>
         <li>
-          <Link to="/">Pedidos</Link>
+          <Link to="/pedidos">Pedidos</Link>
         </li>
         <li>
           <Link to="/sesion">Sesión</Link>

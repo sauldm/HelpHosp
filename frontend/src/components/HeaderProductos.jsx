@@ -11,7 +11,7 @@ const HeaderProductos = () => {
           <button>Observaciones</button>
           <button
             onClick={() => {
-              navigate("/");
+              navigate("/pedidos");
             }}
           >
             Descartar
