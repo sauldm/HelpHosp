@@ -39,14 +39,16 @@ const ProveedorProductos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setProductos((previo) =>
-        previo.map(productoModificado.id == producto.id)
+        previo.map((productoModificado) => productoModificado.id == producto.id)
       );
     } else console.error("Error al modificar producto");
   };
 
   const eliminarProducto = async (producto) => {
-    await fetch(API_URL + "/" + id, { method: "DELETE" });
-    setPedidos((previo) => previo.filter((p) => p.id !== producto.id));
+    await fetch(API_URL + "/" + producto.id, { method: "DELETE" });
+    setPedidos((previo) =>
+      previo.filter((productoEliminado) => productoEliminado.id !== producto.id)
+    );
   };
 
   useEffect(() => {

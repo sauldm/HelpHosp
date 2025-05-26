@@ -5,7 +5,7 @@ import ModalGeneral from "./ModalGeneral";
 import Cargando from "./Cargando";
 
 const ListaPedidos = () => {
-  const pedidos = useContext(ContextoPedidos);
+  const { pedidos } = useContext(ContextoPedidos);
   const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState();
 

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ContextoProductos } from "./contexto/ProveedorProductos";
 
 const ListaProductos = ({ pedido }) => {
-  const { productos, crearProducto } = useContext(ContextoProductos);
+  const { productos } = useContext(ContextoProductos);
 
   return (
     <div className="productos">

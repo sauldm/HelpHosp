@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Cargando from "../components/Cargando";
 
 const Productos = () => {
-  const pedidos = useContext(ContextoPedidos);
+  const { pedidos } = useContext(ContextoPedidos);
   const { telefono } = useParams();
 
   if (pedidos.length == 0) {
