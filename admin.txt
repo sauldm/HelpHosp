@@ -1,0 +1,4 @@
+admin solo 1: puede eliminar y añadir empleados, solo el "jefe"
+
+
+moderadores: no pueden
