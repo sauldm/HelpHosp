@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import Pedido from "./Pedido";
-import { ContextoPedidos } from "./contexto/ProveedorPedidos";
 import ModalGeneral from "./ModalGeneral";
 import Cargando from "./Cargando";
+import ContextoPedidos from "./contexto/ContextoPedidos";
 
 const ListaPedidos = () => {
   const { pedidos } = useContext(ContextoPedidos);

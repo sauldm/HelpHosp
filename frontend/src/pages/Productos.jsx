@@ -2,9 +2,9 @@ import { useContext } from "react";
 import BarraProductosParaPedido from "../components/BarraProductosParaPedido";
 import Empleados from "../components/Empleados";
 import ListaProductos from "../components/ListaProductos";
-import { ContextoPedidos } from "../components/contexto/ProveedorPedidos";
 import { useParams } from "react-router-dom";
 import Cargando from "../components/Cargando";
+import ContextoPedidos from "../components/contexto/ContextoPedidos";
 
 const Productos = () => {
   const { pedidos } = useContext(ContextoPedidos);

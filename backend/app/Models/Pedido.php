@@ -6,19 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
+
+    protected $table = "pedidos";
     protected $fillable = [
-        "cliente_id",
+        "cliente_telefono",
         "estado",
         "numero_pedido",
     ];
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, "cliente_id", "telefono");
+        return $this->belongsTo(Cliente::class, "cliente_telefono", "telefono");
     }
 
     public function producto(){
-        return $this->belongsToMany(Producto::class, "pedido_producto")
+        return $this->belongsToMany(Producto::class, "pedido_productos")
                     ->withPivot("cantidad", "observaciones")
                     ->withTimestamps();
     }

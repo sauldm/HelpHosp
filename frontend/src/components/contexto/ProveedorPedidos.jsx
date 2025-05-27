@@ -1,6 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import ContextoPedidos from "./ContextoPedidos";
 
-const ContextoPedidos = createContext();
 
 const ProveedorPedidos = ({ children }) => {
   const [pedidos, setPedidos] = useState([]);
@@ -11,6 +11,8 @@ const ProveedorPedidos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setPedidos(data);
+            console.log("Pedidos obtenidos:", data);
+
     } else {
       console.log("error");
     }
@@ -73,4 +75,3 @@ const ProveedorPedidos = ({ children }) => {
 };
 
 export default ProveedorPedidos;
-export { ContextoPedidos };

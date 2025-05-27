@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { ContextoProductos } from "./contexto/ProveedorProductos";
 
 const BarraProductosParaPedido = ({ pedido }) => {
   if (!pedido) {

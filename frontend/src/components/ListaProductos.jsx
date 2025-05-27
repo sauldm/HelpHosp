@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { ContextoProductos } from "./contexto/ProveedorProductos";
+import ContextoProductos from "./contexto/ContextoProductos";
 
 const ListaProductos = ({ pedido }) => {
   const { productos } = useContext(ContextoProductos);
+  console.log(productos);
 
   return (
     <div className="productos">

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
+
+    protected $table = "clientes";
     protected $fillable = [
         "nombre",
         "telefono",
@@ -13,6 +15,6 @@ class Cliente extends Model
     ];
 
     public function pedidos(){
-        return $this->hasMany(Pedido::class,"cliente_id","telefono");
+        return $this->hasMany(Pedido::class,"cliente_telefono","telefono");
     }
 }

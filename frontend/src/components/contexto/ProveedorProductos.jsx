@@ -1,6 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import ContextoProductos from "./ContextoProductos";
 
-const ContextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]);
@@ -11,6 +11,7 @@ const ProveedorProductos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setProductos(data);
+      console.log("Productos obtenidos:", data);
     } else {
       console.error("Error al obtener productos");
     }
@@ -39,7 +40,7 @@ const ProveedorProductos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setProductos((previo) =>
-        previo.map((productoModificado) => productoModificado.id == producto.id)
+        previo.map((productoModificado) => productoModificado.id == data.id)
       );
     } else console.error("Error al modificar producto");
   };
@@ -70,4 +71,3 @@ const ProveedorProductos = ({ children }) => {
 };
 
 export default ProveedorProductos;
-export { ContextoProductos };

@@ -1,6 +1,5 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import Empleados from "./components/Empleados";
 import Contenido from "./components/Contenido";
 import Header from "./components/Header";
 import Footer from "./components/Footer";

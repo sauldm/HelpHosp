@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
+
+    protected $table = "productos";
     protected $fillable = [
         "nombre",
         "ingredientes",
@@ -15,7 +17,7 @@ class Producto extends Model
 
     public function pedidos()
     {
-        return $this->belongsToMany(Pedido::class, "pedido_producto")
+        return $this->belongsToMany(Pedido::class, "pedido_productos")
                     ->withPivot("cantidad", "observaciones")
                     ->withTimestamps();
     }
