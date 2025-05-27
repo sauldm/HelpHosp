@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->string('telefono');
-            $table->string('domicilio');
+            $table->string("cliente_telefono");
+            $table->foreign("cliente_telefono")->references("telefono")->on("clientes")->onDelete("cascade");
+
+            $table->date("fecha");
+            $table->unsignedBigInteger("numero");
             $table->timestamps();
         });
     }
