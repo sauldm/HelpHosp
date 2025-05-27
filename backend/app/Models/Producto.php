@@ -10,6 +10,13 @@ class Producto extends Model
         "nombre",
         "ingredientes",
         "precio",
-        "observaciones"
+        "disponibilidad",
     ];
+
+    public function pedidos()
+    {
+        return $this->belongsToMany(Pedido::class, "pedido_producto")
+                    ->withPivot("cantidad", "observaciones")
+                    ->withTimestamps();
+    }
 }
