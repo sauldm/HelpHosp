@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ContextoPedidos from "./ContextoPedidos";
 
-
 const ProveedorPedidos = ({ children }) => {
   const [pedidos, setPedidos] = useState([]);
   const API_URL = "http://127.0.0.1:8000/api/pedidos";
@@ -11,10 +10,9 @@ const ProveedorPedidos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setPedidos(data);
-            console.log("Pedidos obtenidos:", data);
-
+      console.log("Pedidos obtenidos:", data);
     } else {
-      console.log("error");
+      console.log("error al obtener pedidos");
     }
   };
 

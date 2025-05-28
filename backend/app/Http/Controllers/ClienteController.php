@@ -15,7 +15,11 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'telefono' => 'required|unique:clientes',
+            'telefono' => [
+                'required',
+                'unique:clientes',
+                'regex:/^[0-9]{9}$/'
+            ],
             'nombre' => 'required',
             'domicilio' => 'nullable',
         ]);
@@ -30,8 +34,12 @@ class ClienteController extends Controller
 
     public function update(Request $request, $telefono)
     {
+        $request->validate([
+            'nombre' => 'required',
+            'domicilio' => 'nullable',
+        ]);
         $cliente = Cliente::findOrFail($telefono);
-        $cliente->update($request->all());
+        $cliente->update($request->only(['nombre', 'domicilio']));
 
         return $cliente;
     }

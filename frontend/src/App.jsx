@@ -5,20 +5,23 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProveedorProductos from "./components/contexto/ProveedorProductos";
 import ProveedorPedidos from "./components/contexto/ProveedorPedidos";
+import ProveedorCliente from "./components/contexto/ProveedorCliente";
 
 function App() {
   return (
-    <ProveedorPedidos>
-      <ProveedorProductos>
-        <Router>
-          <div className="pagina">
-            <Header />
-            <Contenido />
-            <Footer />
-          </div>
-        </Router>
-      </ProveedorProductos>
-    </ProveedorPedidos>
+    <ProveedorCliente>
+      <ProveedorPedidos>
+        <ProveedorProductos>
+          <Router>
+            <div className="pagina">
+              <Header />
+              <Contenido />
+              <Footer />
+            </div>
+          </Router>
+        </ProveedorProductos>
+      </ProveedorPedidos>
+    </ProveedorCliente>
   );
 }
 

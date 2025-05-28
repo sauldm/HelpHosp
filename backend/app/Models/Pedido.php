@@ -11,7 +11,7 @@ class Pedido extends Model
     protected $fillable = [
         "cliente_telefono",
         "estado",
-        "numero_pedido",
+        "formaDeEncargo"
     ];
 
     public function cliente()
@@ -19,9 +19,10 @@ class Pedido extends Model
         return $this->belongsTo(Cliente::class, "cliente_telefono", "telefono");
     }
 
-    public function producto(){
+    public function productos()
+    {
         return $this->belongsToMany(Producto::class, "pedido_productos")
-                    ->withPivot("cantidad", "observaciones")
-                    ->withTimestamps();
+            ->withPivot("cantidad", "observaciones")
+            ->withTimestamps();
     }
 }

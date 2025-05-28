@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("cliente_telefono");
             $table->foreign("cliente_telefono")->references("telefono")->on("clientes")->onDelete("cascade");
-
-            $table->date("fecha");
-            $table->unsignedBigInteger("numero");
+            $table->string("estado")->default("pendiente");
+            $table->string("formaDeEncargo");
             $table->timestamps();
         });
     }

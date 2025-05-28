@@ -16,15 +16,12 @@ class PedidoSeeder extends Seeder
 
         Pedido::create([
             'cliente_telefono' => $cliente1->telefono,
-            'fecha' => now()->toDateString(),
-            'numero' => 1,
+            'formaDeEncargo' => "Domicilio"
         ]);
 
         Pedido::create([
             'cliente_telefono' => $cliente2->telefono,
-            'fecha' => now()->toDateString(),
-            'numero' => 2,
+            'formaDeEncargo' => "Recoger"
         ]);
     }
 }
-

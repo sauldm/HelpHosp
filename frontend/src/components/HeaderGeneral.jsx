@@ -4,8 +4,13 @@ import { useState } from "react";
 
 const HeaderGeneral = () => {
   const [isModalTelefonoOpen, setisModalTelefonoOpen] = useState(false);
-  const [telefono, setTelefono] = useState();
+  const [telefono, setTelefono] = useState("");
   const navigate = useNavigate();
+  const patronTelefono = /^[0-9]{9}$/;
+
+  function isTelefonoValido() {
+    return patronTelefono.test(telefono);
+  }
 
   return (
     <>
@@ -15,24 +20,25 @@ const HeaderGeneral = () => {
           isModalOpen={isModalTelefonoOpen}
           setisModalOpen={setisModalTelefonoOpen}
         >
-          Teléfono:{" "}
-          <input
-            type="text"
-            id="telefono"
-            onChange={(e) => setTelefono(e.target.value)}
-          />
-          <button
-            className="enviarTelefono"
-            onClick={() => {
-              if (telefono.length == 9) {
-                navigate(`/productos/${telefono}`);
+          <form
+            onSubmit={(e) => {
+              e.preventDefault;
+              if (isTelefonoValido()) {
                 setisModalTelefonoOpen(false);
+                return navigate("productos/" + telefono);
               }
-              setisModalTelefonoOpen(false);
             }}
           >
-            Enviar
-          </button>
+            <label>
+              Teléfono:
+              <input
+                type="text"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+              />
+            </label>
+            <input type="submit" />
+          </form>
         </ModalGeneral>
 
         <button onClick={() => navigate("/terraza")}>Terraza</button>

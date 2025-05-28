@@ -11,15 +11,15 @@ class PedidoController extends Controller
 {
     public function index()
     {
-        return Pedido::with("clie")->get();
+        return Pedido::with("cliente")->get();
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'cliente_telefono' => 'required|exists:clientes,telefono',
-            'fecha' => 'required|date',
-            'numero' => 'required|integer',
+            "estado" => "required|string",
+            'formaDeEncargo' => 'required',
             'productos' => 'required|array',
             'productos.*.producto_id' => 'required|exists:productos,id',
             'productos.*.cantidad' => 'required|integer|min:1',
@@ -31,8 +31,8 @@ class PedidoController extends Controller
         try {
             $pedido = Pedido::create([
                 'cliente_telefono' => $validated['cliente_telefono'],
-                'fecha' => $validated['fecha'],
-                'numero' => $validated['numero'],
+                'estado' => $validated['estado'],
+                'formaDeEncargo' => $validated['formaDeEncargo'],
             ]);
 
             foreach ($validated['productos'] as $item) {
@@ -60,9 +60,32 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::findOrFail($id);
 
-        $pedido->update($request->only(['fecha', 'numero']));
+        $validated = $request->validate([
+            'estado' => 'required|string',
+            'formaDeEncargo' => 'required',
+            'productos' => 'required|array',
+            'productos.*.producto_id' => 'required|exists:productos,id',
+            'productos.*.cantidad' => 'required|integer|min:1',
+            'productos.*.observaciones' => 'nullable|string',
+        ]);
 
-        return response()->json($pedido);
+        $pedido->update([
+            'estado' => $validated['estado'],
+            'formaDeEncargo' => $validated['formaDeEncargo'],
+        ]);
+
+        if (isset($validated['productos'])) {
+            $productosSync = [];
+            foreach ($validated['productos'] as $item) {
+                $productosSync[$item['producto_id']] = [
+                    'cantidad' => $item['cantidad'],
+                    'observaciones' => $item['observaciones'] ?? null,
+                ];
+            }
+            $pedido->productos()->sync($productosSync);
+        }
+
+        return response()->json($pedido->load('productos', 'cliente'));
     }
 
     public function destroy($id)
@@ -71,5 +94,21 @@ class PedidoController extends Controller
         $pedido->delete();
 
         return response()->json(['mensaje' => 'Pedido eliminado']);
+    }
+
+
+    public function resetPedidos()
+    {
+        try {
+            DB::table('pedido_producto')->delete();
+
+            Pedido::truncate();
+
+            DB::commit();
+            return response()->json(['message' => 'Todos los pedidos han sido eliminados.'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Error al eliminar pedidos.'], 500);
+        }
     }
 }
