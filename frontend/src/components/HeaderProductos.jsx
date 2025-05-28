@@ -7,7 +7,7 @@ const HeaderProductos = () => {
     <>
       <div className="headerContainer">
         <div className="contenedorBotones">
-          <button>Borrar</button>
+          <button >Borrar</button>
           <button>Observaciones</button>
           <button
             onClick={() => {

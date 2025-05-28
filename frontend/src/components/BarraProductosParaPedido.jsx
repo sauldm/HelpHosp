@@ -1,10 +1,30 @@
-const BarraProductosParaPedido = ({ cliente }) => {
-  if (!cliente) {
+const BarraProductosParaPedido = ({
+  productosSeleccionados,
+  setProductoPulsado,
+}) => {
+  if (!productosSeleccionados || productosSeleccionados.length === 0) {
     return <div className="barraProductosPedido">asd</div>;
   }
   return (
     <>
-      <div className="barraProductosPedido">{cliente.id}</div>
+      <div className="barraProductosPedido">
+        {productosSeleccionados.map((producto) => {
+          return (
+            <div
+              className="productoPedido"
+              key={producto.id}
+              onClick={() => {
+                setProductoPulsado(producto);
+                className === "productoPedido"
+                  ? (className = "productoPedido pulsado")
+                  : (className = "productoPedido");
+              }}
+            >
+              {producto.nombre}
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

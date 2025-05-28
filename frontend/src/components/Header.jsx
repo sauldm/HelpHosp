@@ -6,7 +6,7 @@ const Header = () => {
   const location = useLocation();
 
   if (location.pathname.includes("/productos")) {
-    return <HeaderProductos />;
+    return null;
   } else if (location.pathname == "/") {
     return <></>;
   } else {

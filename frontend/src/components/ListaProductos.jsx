@@ -1,9 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 
-const ListaProductos = () => {
+const ListaProductos = ({ setProductosSeleccionados }) => {
   const { productos } = useContext(ContextoProductos);
-  console.log(productos);
 
   return (
     <div className="productos">
@@ -11,7 +10,7 @@ const ListaProductos = () => {
         <div key={index}>
           <button
             onClick={() => {
-              <></>;
+              <>{setProductosSeleccionados((prev) => [...prev, producto])}</>;
             }}
           >
             <p>{producto.nombre}</p>

@@ -15,41 +15,61 @@ class PedidoController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'cliente_telefono' => 'required|exists:clientes,telefono',
-            "estado" => "required|string",
-            'formaDeEncargo' => 'required',
-            'productos' => 'required|array',
-            'productos.*.producto_id' => 'required|exists:productos,id',
-            'productos.*.cantidad' => 'required|integer|min:1',
-            'productos.*.observaciones' => 'nullable|string',
+{
+    $validated = $request->validate([
+        'cliente_telefono' => 'required|exists:clientes,telefono',
+        'estado' => 'required|string',
+        'formaDeEncargo' => 'required',
+        'productos' => 'required|array',
+        'productos.*.producto_id' => 'required|exists:productos,id',
+        'productos.*.cantidad' => 'required|integer|min:1',
+        'productos.*.observaciones' => 'nullable|string',
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+        // Crear pedido
+        $pedido = Pedido::create([
+            'cliente_telefono' => $validated['cliente_telefono'],
+            'estado' => $validated['estado'],
+            'formaDeEncargo' => $validated['formaDeEncargo'],
         ]);
 
-        DB::beginTransaction();
+        // Iterar sobre los productos
+        foreach ($validated['productos'] as $item) {
+            $productoId = $item["producto_id"];
+            $cantidad = $item['cantidad'];
+            $observaciones = $item['observaciones'] ?? null;
 
-        try {
-            $pedido = Pedido::create([
-                'cliente_telefono' => $validated['cliente_telefono'],
-                'estado' => $validated['estado'],
-                'formaDeEncargo' => $validated['formaDeEncargo'],
-            ]);
+            // Buscar si ya existe ese producto con esa observación
+            $existente = $pedido->productos()
+                ->wherePivot('producto_id', $productoId)
+                ->wherePivot('observaciones', $observaciones)
+                ->first();
 
-            foreach ($validated['productos'] as $item) {
-                $pedido->productos()->attach($item['producto_id'], [
-                    'cantidad' => $item['cantidad'],
-                    'observaciones' => $item['observaciones'] ?? null,
+            if ($existente) {
+                $nuevaCantidad = $existente->pivot->cantidad + $cantidad;
+                $pedido->productos()->updateExistingPivot($productoId, [
+                    'cantidad' => $nuevaCantidad,
+                    'observaciones' => $observaciones
+                ]);
+            } else {
+                $pedido->productos()->attach($productoId, [
+                    'cantidad' => $cantidad,
+                    'observaciones' => $observaciones
                 ]);
             }
-
-            DB::commit();
-
-            return response()->json($pedido->load('productos', 'cliente'), 201);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => 'No se pudo crear el pedido', 'detalle' => $e->getMessage()], 500);
         }
+
+        DB::commit();
+
+        return response()->json($pedido->load('productos', 'cliente'), 201);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => 'No se pudo crear el pedido', 'detalle' => $e->getMessage()], 500);
     }
+}
 
     public function show($id)
     {
