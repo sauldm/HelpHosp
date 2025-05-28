@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ContextoProductos from "./ContextoProductos";
 
-
 const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const API_URL = "http://127.0.0.1:8000/api/productos";

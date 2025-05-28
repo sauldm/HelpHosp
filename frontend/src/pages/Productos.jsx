@@ -1,40 +1,35 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import BarraProductosParaPedido from "../components/BarraProductosParaPedido";
 import Empleados from "../components/Empleados";
 import ListaProductos from "../components/ListaProductos";
 import { useParams } from "react-router-dom";
 import Cargando from "../components/Cargando";
-import ContextoPedidos from "../components/contexto/ContextoPedidos";
+import ModalCrearCliente from "../components/ModalCrearCliente";
 import ContextoCliente from "../components/contexto/ContextoCliente";
-import CrearCliente from "../components/CrearCliente";
 
 const Productos = () => {
-  const { pedidos } = useContext(ContextoPedidos);
   const { clientes } = useContext(ContextoCliente);
   const { telefono } = useParams();
+  const [cliente, setCliente] = useState();
 
-  function isTelefonoDeCliente() {
-    return clientes.find((cliente) => cliente.telefono == telefono);
-  }
+  useEffect(() => {
+    setCliente(clientes.find((cliente) => cliente.telefono == telefono));
+  }, [clientes, telefono]);
 
-  if (!isTelefonoDeCliente()) {
-    return <CrearCliente telefono={telefono} />;
-  }
-
-  if (pedidos.length == 0) {
+  if (clientes.length === 0) {
     return (
       <div className="body">
         <Cargando />
       </div>
     );
   }
-  const pedido = pedidos.find((pedido) => pedido.cliente_telefono == telefono);
 
   return (
     <div className="body">
-      <BarraProductosParaPedido pedido={pedido} />
+      <ModalCrearCliente telefono={telefono} />
+      <BarraProductosParaPedido cliente={cliente} />
       <div className="contenido">
-        <ListaProductos pedido={pedido} />
+        <ListaProductos />
       </div>
       <Empleados />
     </div>

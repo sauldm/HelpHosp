@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 
-const ListaProductos = ({ pedido }) => {
+const ListaProductos = () => {
   const { productos } = useContext(ContextoProductos);
   console.log(productos);
 

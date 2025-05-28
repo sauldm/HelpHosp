@@ -1,11 +1,16 @@
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 
-const ModalGeneral = ({ isModalOpen, setisModalOpen, children }) => {
+const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
+  const navegar = useNavigate();
   return (
     <>
       <Modal
         isOpen={isModalOpen}
-        onRequestClose={() => setisModalOpen(false)}
+        onRequestClose={() => {
+          setisModalOpen(false);
+          navegar("/pedidos");
+        }}
         style={{
           content: {
             width: "500px",
@@ -20,7 +25,13 @@ const ModalGeneral = ({ isModalOpen, setisModalOpen, children }) => {
         }}
       >
         {children}
-        <button className="cerrarModal" onClick={() => setisModalOpen(false)}>
+        <button
+          className="cerrarModal"
+          onClick={() => {
+            setisModalOpen(false);
+            alCerrar();
+          }}
+        >
           Cerrar
         </button>
       </Modal>
