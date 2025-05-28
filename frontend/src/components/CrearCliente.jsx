@@ -22,7 +22,6 @@ const CrearCliente = ({ telefono }) => {
         nombre,
         domicilio,
         telefono,
-        formaDeEncargo,
       };
       crearCliente(nuevoCliente);
       setisModalClienteOpen(false);
