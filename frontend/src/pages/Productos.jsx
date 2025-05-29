@@ -7,9 +7,12 @@ import Cargando from "../components/Cargando";
 import ModalCrearCliente from "../components/ModalCrearCliente";
 import ContextoCliente from "../components/contexto/ContextoCliente";
 import HeaderProductos from "../components/HeaderProductos";
+import ContextoProductos from "../components/contexto/ContextoProductos";
 
 const Productos = () => {
   const { clientes } = useContext(ContextoCliente);
+  const { productos } = useContext(ContextoProductos);
+
   const { telefono } = useParams();
   const [cliente, setCliente] = useState();
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
@@ -17,31 +20,39 @@ const Productos = () => {
 
   useEffect(() => {
     setCliente(clientes.find((cliente) => cliente.telefono == telefono));
-  }, [clientes, telefono, productosSeleccionados, productoPulsado, cliente]);
+  }, [clientes, telefono]);
 
-  if (clientes.length === 0) {
+  function siHayClientes() {
     return (
-      <div className="body">
-        <Cargando />
-      </div>
+      <>
+        <ListaProductos
+          setProductosSeleccionados={setProductosSeleccionados}
+          productos={productos}
+        />
+        <ModalCrearCliente telefono={telefono} />
+      </>
     );
+  }
+
+  function existeClientesYProductos() {
+    return clientes.length > 0 && productos.length > 0;
   }
 
   return (
     <div className="pagina">
-      <HeaderProductos productosSeleccionados={productosSeleccionados}/>
+      <HeaderProductos
+        productosSeleccionados={productosSeleccionados}
+        productos={productos}
+        cliente={cliente}
+      />
 
       <div className="body">
-        {console.log(productosSeleccionados)}
-        <ModalCrearCliente telefono={telefono} />
         <BarraProductosParaPedido
           productosSeleccionados={productosSeleccionados}
           productoPulsado={productoPulsado}
         />
         <div className="contenido">
-          <ListaProductos
-            setProductosSeleccionados={setProductosSeleccionados}
-          />
+          {!existeClientesYProductos() ? <Cargando /> : siHayClientes()}
         </div>
         <Empleados />
       </div>
