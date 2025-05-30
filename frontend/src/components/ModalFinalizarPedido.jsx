@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import ModalGeneral from "./ModalGeneral";
 import { useContext, useState } from "react";
 import ContextoPedidos from "./contexto/ContextoPedidos";
-import ContextoProductos from "./contexto/ContextoProductos";
 import ContextoCliente from "./contexto/ContextoCliente";
 
 const ModalFinalizarPedido = ({
   productosSeleccionados,
+  cliente,
   nuevoCliente,
   isModalFinalizarOpen,
   setisModalFinalizarOpen,
@@ -26,9 +26,14 @@ const ModalFinalizarPedido = ({
     idProductos = productosSeleccionados.map((producto) => ({
       producto_id: producto.id,
     }));
-    crearCliente(nuevoCliente);
+
+    if(nuevoCliente) {
+      crearCliente(nuevoCliente);
+      cliente = nuevoCliente;
+    }
+
     const nuevoPedido = {
-      cliente_telefono: nuevoCliente.telefono,
+      cliente_telefono: cliente.telefono,
       formaDeEncargo: formaDeEncargo,
       productos: idProductos,
     };

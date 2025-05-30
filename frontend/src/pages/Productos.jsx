@@ -14,12 +14,11 @@ const Productos = () => {
   const { clientes } = useContext(ContextoCliente);
   const { telefono } = useParams();
   const [cliente, setCliente] = useState();
+  const [nuevoCliente, setNuevoCliente] = useState();
+  
   useEffect(() => {
     setCliente(clientes.find((cliente) => cliente.telefono == telefono));
   }, [clientes, telefono]);
-  const [nuevoCliente, setNuevoCliente] = useState();
-
- 
 
   function siHayClientes() {
     return (

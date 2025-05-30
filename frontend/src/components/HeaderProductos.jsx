@@ -9,7 +9,6 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
   const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
   const navigate = useNavigate();
 
-    
   return (
     <>
       <div className="headerContainer">
@@ -42,6 +41,7 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
         isModalFinalizarOpen={isModalFinalizarOpen}
         setisModalFinalizarOpen={setisModalFinalizarOpen}
         productosSeleccionados={productosSeleccionados}
+        cliente={cliente}
         nuevoCliente={nuevoCliente}
       />
     </>
