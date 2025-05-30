@@ -9,7 +9,6 @@ const CrearCliente = ({ telefono }) => {
   const [isModalClienteOpen, setisModalClienteOpen] = useState(true);
   const [nombre, setNombre] = useState("");
   const [domicilio, setDomicilio] = useState("");
-  const [formaDeEncargo, setFormaDeEncargo] = useState("Domicilio");
 
   function isFormValido(nombre) {
     return nombre.trim() !== "";
@@ -25,11 +24,9 @@ const CrearCliente = ({ telefono }) => {
       };
       crearCliente(nuevoCliente);
       setisModalClienteOpen(false);
-      navegar("/productos/" + telefono);
     } else {
       setNombre("");
       setDomicilio("");
-      setFormaDeEncargo("Domicilio");
     }
   }
 
@@ -57,16 +54,7 @@ const CrearCliente = ({ telefono }) => {
             onChange={(e) => setDomicilio(e.target.value)}
           />
         </label>
-        <label>
-          Forma de encargo:
-          <select
-            value={formaDeEncargo}
-            onChange={(e) => setFormaDeEncargo(e.target.value)}
-          >
-            <option value="Domicilio">Domicilio</option>
-            <option value="Recoger">Recoger</option>
-          </select>
-        </label>
+        
         <input type="submit" value="Crear Cliente" />
       </form>
     </ModalGeneral>

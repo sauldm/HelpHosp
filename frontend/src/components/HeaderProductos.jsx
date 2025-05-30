@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import BuscarProducto from "./BuscarProducto";
 import ModalFinalizarPedido from "./ModalFinalizarPedido";
+import { useContext, useState } from "react";
+import ContextoCliente from "./contexto/ContextoCliente";
 
 const HeaderProductos = ({ productosSeleccionados, productos, cliente }) => {
+  const { eliminarCliente } = useContext(ContextoCliente);
+  const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
   const navigate = useNavigate();
+
+    
   return (
     <>
       <div className="headerContainer">
@@ -12,6 +18,7 @@ const HeaderProductos = ({ productosSeleccionados, productos, cliente }) => {
           <button>Observaciones</button>
           <button
             onClick={() => {
+              eliminarCliente(cliente);
               navigate("/pedidos");
             }}
           >
@@ -27,18 +34,17 @@ const HeaderProductos = ({ productosSeleccionados, productos, cliente }) => {
           >
             Buscar
           </button>
-          <button
-            onClick={() => (
-              <ModalFinalizarPedido
-                productosSeleccionados={productosSeleccionados}
-                cliente={cliente}
-              />
-            )}
-          >
+          <button onClick={() => setisModalFinalizarOpen(true)}>
             Finalizar
           </button>
         </div>
       </div>
+      <ModalFinalizarPedido
+        isModalFinalizarOpen={isModalFinalizarOpen}
+        setisModalFinalizarOpen={setisModalFinalizarOpen}
+        productosSeleccionados={productosSeleccionados}
+        cliente={cliente}
+      />
     </>
   );
 };

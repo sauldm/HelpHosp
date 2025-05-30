@@ -3,7 +3,7 @@ import ContextoProductos from "./ContextoProductos";
 
 const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]);
-  const API_URL = "http://127.0.0.1:8000/api/productos";
+  const API_URL = `${import.meta.env.VITE_API_URL}/productos`;
 
   const getProductos = async () => {
     const respuesta = await fetch(API_URL);

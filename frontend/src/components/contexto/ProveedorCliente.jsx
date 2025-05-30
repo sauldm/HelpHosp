@@ -3,7 +3,7 @@ import ContextoCliente from "./ContextoCliente";
 
 const ProveedorCliente = ({ children }) => {
   const [clientes, setClientes] = useState([]);
-  const API_URL = "http://127.0.0.1:8000/api/clientes";
+  const API_URL = `${import.meta.env.VITE_API_URL}/clientes`;
 
   const getClientes = async () => {
     const respuesta = await fetch(API_URL);

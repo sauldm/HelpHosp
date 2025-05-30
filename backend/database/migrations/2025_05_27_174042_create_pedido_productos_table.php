@@ -17,13 +17,13 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
 
-                $table->foreignId('producto_id')
+            $table->foreignId('producto_id')
                 ->constrained()
                 ->onDelete('cascade');
 
             $table->integer('cantidad')->default(1);
-            $table->string('observaciones')->nullable();
-            
+            $table->string('observaciones')->default('')->nullable(true);
+
             $table->timestamps();
         });
     }

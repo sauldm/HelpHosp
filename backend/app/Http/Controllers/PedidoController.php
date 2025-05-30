@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
-
+use App\Models\PedidoProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PedidoController extends Controller
 {
@@ -15,61 +16,77 @@ class PedidoController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'cliente_telefono' => 'required|exists:clientes,telefono',
-        'estado' => 'required|string',
-        'formaDeEncargo' => 'required',
-        'productos' => 'required|array',
-        'productos.*.producto_id' => 'required|exists:productos,id',
-        'productos.*.cantidad' => 'required|integer|min:1',
-        'productos.*.observaciones' => 'nullable|string',
-    ]);
-
-    DB::beginTransaction();
-
-    try {
-        // Crear pedido
-        $pedido = Pedido::create([
-            'cliente_telefono' => $validated['cliente_telefono'],
-            'estado' => $validated['estado'],
-            'formaDeEncargo' => $validated['formaDeEncargo'],
+    {
+        Log::info('Creando pedido');
+        $validated = $request->validate([
+            'cliente_telefono' => 'required|exists:clientes,telefono',
+            'formaDeEncargo' => 'string',
+            'productos' => 'required|array',
+            'productos.*.producto_id' => 'required|exists:productos,id',
+            'productos.*.cantidad' => 'integer|min:1',
+            'productos.*.observaciones' => 'nullable|string',
         ]);
 
-        // Iterar sobre los productos
-        foreach ($validated['productos'] as $item) {
-            $productoId = $item["producto_id"];
-            $cantidad = $item['cantidad'];
-            $observaciones = $item['observaciones'] ?? null;
+        Log::info('Pedido creado exitosamente');
 
-            // Buscar si ya existe ese producto con esa observación
-            $existente = $pedido->productos()
-                ->wherePivot('producto_id', $productoId)
-                ->wherePivot('observaciones', $observaciones)
-                ->first();
 
-            if ($existente) {
-                $nuevaCantidad = $existente->pivot->cantidad + $cantidad;
-                $pedido->productos()->updateExistingPivot($productoId, [
-                    'cantidad' => $nuevaCantidad,
-                    'observaciones' => $observaciones
-                ]);
-            } else {
-                $pedido->productos()->attach($productoId, [
-                    'cantidad' => $cantidad,
-                    'observaciones' => $observaciones
-                ]);
+
+        DB::beginTransaction();
+
+        try {
+            // Crear pedido
+            $pedido = Pedido::create([
+                'cliente_telefono' => $validated['cliente_telefono'],
+                'formaDeEncargo' => $validated['formaDeEncargo'],
+            ]);
+
+            foreach ($validated['productos'] as $item) {
+                $productoId = $item['producto_id'];
+                $cantidad = $item['cantidad'] ?? 1;
+                $observaciones = trim($item['observaciones'] ?? '');
+
+                if ($observaciones === '') {
+                    // Agrupar sin observaciones
+                    $existente = PedidoProducto::where('pedido_id', $pedido->id)
+                        ->where('producto_id', $productoId)
+                        ->where(function ($query) {
+                            $query->whereNull('observaciones')
+                                ->orWhere('observaciones', '');
+                        })
+                        ->first();
+
+                    if ($existente) {
+                        $existente->cantidad += $cantidad;
+                        $existente->save();
+                    } else {
+                        PedidoProducto::create([
+                            'pedido_id'     => $pedido->id,
+                            'producto_id'   => $productoId,
+                            'cantidad'      => $cantidad,
+                            'observaciones' => '',
+                        ]);
+                    }
+                } else {
+                    // Observaciones presentes, nueva fila
+                    PedidoProducto::create([
+                        'pedido_id'     => $pedido->id,
+                        'producto_id'   => $productoId,
+                        'cantidad'      => $cantidad,
+                        'observaciones' => $observaciones,
+                    ]);
+                }
             }
+
+            DB::commit();
+            // mostrar por consola mensaje de éxito
+            Log::info('Pedido creado exitosamente', ['pedido_id' => $pedido->id]);
+
+            return response()->json($pedido->load('productos', 'cliente'), 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'No se pudo crear el pedido', 'detalle' => $e->getMessage()], 500);
         }
-
-        DB::commit();
-
-        return response()->json($pedido->load('productos', 'cliente'), 201);
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return response()->json(['error' => 'No se pudo crear el pedido', 'detalle' => $e->getMessage()], 500);
     }
-}
 
     public function show($id)
     {
@@ -83,9 +100,9 @@ class PedidoController extends Controller
         $validated = $request->validate([
             'estado' => 'required|string',
             'formaDeEncargo' => 'required',
-            'productos' => 'required|array',
+            'productos' => 'sometimes|array',
             'productos.*.producto_id' => 'required|exists:productos,id',
-            'productos.*.cantidad' => 'required|integer|min:1',
+            'productos.*.cantidad' => 'integer|min:1',
             'productos.*.observaciones' => 'nullable|string',
         ]);
 
@@ -94,12 +111,12 @@ class PedidoController extends Controller
             'formaDeEncargo' => $validated['formaDeEncargo'],
         ]);
 
-        if (isset($validated['productos'])) {
+        if (!empty($validated['productos'])) {
             $productosSync = [];
             foreach ($validated['productos'] as $item) {
                 $productosSync[$item['producto_id']] = [
-                    'cantidad' => $item['cantidad'],
-                    'observaciones' => $item['observaciones'] ?? null,
+                    'cantidad' => $item['cantidad'] ?? 1,
+                    'observaciones' => $item['observaciones'] ?? '',
                 ];
             }
             $pedido->productos()->sync($productosSync);
@@ -119,11 +136,10 @@ class PedidoController extends Controller
 
     public function resetPedidos()
     {
+        DB::beginTransaction();
         try {
-            DB::table('pedido_producto')->delete();
-
+            DB::table('pedido_productos')->delete(); // nombre correcto tabla pivote
             Pedido::truncate();
-
             DB::commit();
             return response()->json(['message' => 'Todos los pedidos han sido eliminados.'], 200);
         } catch (\Exception $e) {

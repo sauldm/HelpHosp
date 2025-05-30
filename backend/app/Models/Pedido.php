@@ -11,7 +11,8 @@ class Pedido extends Model
     protected $fillable = [
         "cliente_telefono",
         "estado",
-        "formaDeEncargo"
+        "formaDeEncargo",
+        
     ];
 
     public function cliente()

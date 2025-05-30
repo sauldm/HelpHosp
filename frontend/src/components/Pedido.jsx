@@ -4,6 +4,7 @@ const Pedido = ({ pedido }) => {
       <p>ID: {pedido.id}</p>
       <p>Teléfono: {pedido.cliente_telefono}</p>
       <p>Domicilio: {pedido.cliente.domicilio}</p>
+      <p>Forma de encargo: {pedido.formaDeEncargo}</p>
     </div>
   );
 };
