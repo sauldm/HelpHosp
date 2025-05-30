@@ -2,13 +2,16 @@ import { useNavigate } from "react-router-dom";
 import ModalGeneral from "./ModalGeneral";
 import { useContext, useState } from "react";
 import ContextoPedidos from "./contexto/ContextoPedidos";
+import ContextoProductos from "./contexto/ContextoProductos";
+import ContextoCliente from "./contexto/ContextoCliente";
 
 const ModalFinalizarPedido = ({
   productosSeleccionados,
-  cliente,
+  nuevoCliente,
   isModalFinalizarOpen,
   setisModalFinalizarOpen,
 }) => {
+  const {crearCliente} = useContext(ContextoCliente);
   const [formaDeEncargo, setFormaDeEncargo] = useState("Domicilio");
   const { crearPedido } = useContext(ContextoPedidos);
   let idProductos = [];
@@ -17,18 +20,15 @@ const ModalFinalizarPedido = ({
 
   if (!isModalFinalizarOpen) return null;
 
-  function sumaPrecios() {
-    return productosSeleccionados.map((producto) => {
-      return (total = +producto.precio);
-    });
-  }
+
 
   function onConfirm() {
     idProductos = productosSeleccionados.map((producto) => ({
       producto_id: producto.id,
     }));
+    crearCliente(nuevoCliente);
     const nuevoPedido = {
-      cliente_telefono: cliente.telefono,
+      cliente_telefono: nuevoCliente.telefono,
       formaDeEncargo: formaDeEncargo,
       productos: idProductos,
     };

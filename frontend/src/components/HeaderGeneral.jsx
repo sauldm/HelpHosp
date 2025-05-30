@@ -15,7 +15,7 @@ const HeaderGeneral = () => {
   return (
     <>
       <header>
-        <button onClick={() => setisModalTelefonoOpen(true)}>Teléfono</button>
+        <button onClick={() => setisModalTelefonoOpen(true)}>Pedido Teléfono</button>
         <ModalGeneral
           isModalOpen={isModalTelefonoOpen}
           setisModalOpen={setisModalTelefonoOpen}
@@ -41,8 +41,8 @@ const HeaderGeneral = () => {
           </form>
         </ModalGeneral>
 
-        <button onClick={() => navigate("/terraza")}>Terraza</button>
-        <button onClick={() => navigate("/barra")}>Barra</button>
+        <button onClick={() => navigate("/terraza")}>Pedido Terraza</button>
+        <button onClick={() => navigate("/barra")}>Pedido Barra</button>
         <button
           className="anyadirProductos"
           onClick={() => navigate("/anyadirProductos")}

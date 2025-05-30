@@ -20,6 +20,7 @@ class ClienteController extends Controller
                 'unique:clientes',
                 'regex:/^[0-9]{9}$/'
             ],
+
             'nombre' => 'required',
             'domicilio' => 'nullable',
         ]);

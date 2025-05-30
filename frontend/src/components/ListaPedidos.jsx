@@ -3,10 +3,9 @@ import Pedido from "./Pedido";
 import ModalGeneral from "./ModalGeneral";
 import Cargando from "./Cargando";
 import ContextoPedidos from "./contexto/ContextoPedidos";
-import CrearCliente from "./CrearCliente";
 
 const ListaPedidos = () => {
-  const { pedidos, eliminarPedido } = useContext(ContextoPedidos);
+  const { pedidos } = useContext(ContextoPedidos);
   const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState();
 
@@ -33,12 +32,7 @@ const ListaPedidos = () => {
               >
                 {pedido.id}
               </button>
-              
             </div>
-            <button
-                className="btnEliminarPedido"
-                onClick={() => eliminarPedido(pedido)}
-              >asdasdasd </button>
           </>
         ))}
       </div>

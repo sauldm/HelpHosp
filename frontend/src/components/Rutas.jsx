@@ -5,6 +5,7 @@ import Productos from "../pages/Productos";
 import Terraza from "../pages/Terraza";
 import Barra from "../pages/Barra";
 import InicioSesion from "../pages/InicioSesion";
+import AnyadirProductos from "../pages/AnyadirProductos";
 
 const Rutas = () => {
   return (
@@ -15,6 +16,7 @@ const Rutas = () => {
       <Route path="/productos/:telefono" element={<Productos />} />
       <Route path="/terraza" element={<Terraza />} />
       <Route path="/barra" element={<Barra />} />
+      <Route path="/anyadirProductos" element={<AnyadirProductos />} />
     </Routes>
   );
 };

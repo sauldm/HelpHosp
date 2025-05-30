@@ -3,6 +3,7 @@ import ContextoProductos from "./ContextoProductos";
 
 const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]);
+  const [productosSeleccionados, setProductosSeleccionados] = useState([]);
   const API_URL = `${import.meta.env.VITE_API_URL}/productos`;
 
   const getProductos = async () => {
@@ -61,6 +62,8 @@ const ProveedorProductos = ({ children }) => {
     modificarProducto,
     eliminarProducto,
     productos,
+    productosSeleccionados,
+    setProductosSeleccionados,
   };
   return (
     <ContextoProductos.Provider value={exportacion}>

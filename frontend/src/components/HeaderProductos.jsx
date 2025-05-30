@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import BuscarProducto from "./BuscarProducto";
 import ModalFinalizarPedido from "./ModalFinalizarPedido";
 import { useContext, useState } from "react";
-import ContextoCliente from "./contexto/ContextoCliente";
+import ContextoProductos from "./contexto/ContextoProductos";
 
-const HeaderProductos = ({ productosSeleccionados, productos, cliente }) => {
-  const { eliminarCliente } = useContext(ContextoCliente);
+const HeaderProductos = ({ cliente, nuevoCliente }) => {
+  const {productosSeleccionados, productos} = useContext(ContextoProductos);
   const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -18,7 +18,6 @@ const HeaderProductos = ({ productosSeleccionados, productos, cliente }) => {
           <button>Observaciones</button>
           <button
             onClick={() => {
-              eliminarCliente(cliente);
               navigate("/pedidos");
             }}
           >
@@ -43,7 +42,7 @@ const HeaderProductos = ({ productosSeleccionados, productos, cliente }) => {
         isModalFinalizarOpen={isModalFinalizarOpen}
         setisModalFinalizarOpen={setisModalFinalizarOpen}
         productosSeleccionados={productosSeleccionados}
-        cliente={cliente}
+        nuevoCliente={nuevoCliente}
       />
     </>
   );

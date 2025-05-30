@@ -1,7 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 
-const ListaProductos = ({ setProductosSeleccionados, productos}) => {
+const ListaProductos = () => {
+    const { productos, setProductosSeleccionados } = useContext(ContextoProductos);
+
+
   return (
     <div className="productos">
       {productos.map((producto, index) => (

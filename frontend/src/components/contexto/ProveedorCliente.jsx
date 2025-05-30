@@ -38,7 +38,7 @@ const ProveedorCliente = ({ children }) => {
     });
     if (respuesta.ok) {
       const data = await respuesta.json();
-      setProductos((previo) =>
+      setClientes((previo) =>
         previo.map((clienteModificado) => clienteModificado.id == data.id)
       );
     } else console.error("Error al modificar cliente");

@@ -11,7 +11,7 @@ class Cliente extends Model
     protected $fillable = [
         "nombre",
         "telefono",
-        "direccion"
+        "domicilio"
     ];
 
     public function pedidos(){

@@ -10,47 +10,39 @@ import HeaderProductos from "../components/HeaderProductos";
 import ContextoProductos from "../components/contexto/ContextoProductos";
 
 const Productos = () => {
+  const { setProductosSeleccionados } = useContext(ContextoProductos);
   const { clientes } = useContext(ContextoCliente);
-  const { productos } = useContext(ContextoProductos);
-
   const { telefono } = useParams();
   const [cliente, setCliente] = useState();
-  const [productosSeleccionados, setProductosSeleccionados] = useState([]);
-  const [productoPulsado, setProductoPulsado] = useState();
-
   useEffect(() => {
     setCliente(clientes.find((cliente) => cliente.telefono == telefono));
   }, [clientes, telefono]);
+  const [nuevoCliente, setNuevoCliente] = useState();
+
+ 
 
   function siHayClientes() {
     return (
       <>
-        <ListaProductos
-          setProductosSeleccionados={setProductosSeleccionados}
-          productos={productos}
-        />
-        <ModalCrearCliente telefono={telefono} />
+        <ListaProductos />
+        <ModalCrearCliente telefono={telefono} alEnviar={setNuevoCliente}/>
       </>
     );
   }
+  useEffect(() => {
+    setProductosSeleccionados([]);
+  }, []);
 
   function existeClientesYProductos() {
-    return clientes.length > 0 && productos.length > 0;
+    return clientes.length > 0;
   }
 
   return (
     <div className="pagina">
-      <HeaderProductos
-        productosSeleccionados={productosSeleccionados}
-        productos={productos}
-        cliente={cliente}
-      />
+      <HeaderProductos cliente={cliente} nuevoCliente={nuevoCliente}/>
 
       <div className="body">
-        <BarraProductosParaPedido
-          productosSeleccionados={productosSeleccionados}
-          productoPulsado={productoPulsado}
-        />
+        <BarraProductosParaPedido />
         <div className="contenido">
           {!existeClientesYProductos() ? <Cargando /> : siHayClientes()}
         </div>
