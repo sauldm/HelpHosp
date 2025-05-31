@@ -1,13 +1,29 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 
 const BarraProductosParaPedido = () => {
-  const { productoPulsado, setProductoPulsado, productosSeleccionados } =
-    useContext(ContextoProductos);
+  const {
+    indiceProductoPulsado,
+    setIndiceProductoPulsado,
+    productosSeleccionados,
+  } = useContext(ContextoProductos);
 
   if (!productosSeleccionados || productosSeleccionados.length === 0) {
     return <div className="barraProductosPedido">asd</div>;
   }
+
+  function hayObservaciones(producto) {
+    try {
+      if (producto.pivot.observaciones) {
+        return (
+          <span className="observaciones">{producto.pivot.observaciones}</span>
+        );
+      }
+    } catch (error) {
+      return null;
+    }
+  }
+
   return (
     <>
       <div className="barraProductosPedido">
@@ -15,14 +31,15 @@ const BarraProductosParaPedido = () => {
           return (
             <div
               className={`productoPedido${
-                productoPulsado === producto ? " pulsado" : ""
+                indiceProductoPulsado === index ? " pulsado" : ""
               }`}
               key={index}
               onClick={() => {
-                setProductoPulsado(producto);
+                setIndiceProductoPulsado(index);
               }}
             >
               {producto.nombre}
+              {hayObservaciones(producto)}
             </div>
           );
         })}

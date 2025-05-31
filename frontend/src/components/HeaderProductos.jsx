@@ -1,29 +1,85 @@
 import { useNavigate } from "react-router-dom";
-import BuscarProducto from "./BuscarProducto";
 import ModalFinalizarPedido from "./ModalFinalizarPedido";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
+import ModalObservaciones from "./ModalObservaciones";
 
 const HeaderProductos = ({ cliente, nuevoCliente }) => {
-  const {productosSeleccionados,setProductosSeleccionados, productos, productoPulsado, setProductoPulsado} = useContext(ContextoProductos);
+  const {
+    productosSeleccionados,
+    setProductosSeleccionados,
+    indiceProductoPulsado,
+    setIndiceProductoPulsado,
+    setProductosASeleccionar,
+    productos,
+  } = useContext(ContextoProductos);
   const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
+  const [isModalObservacionesOpen, setIsModalObservacionesOpen] =
+    useState(false);
   const navigate = useNavigate();
+  const [palabraABuscar, setPalabraABuscar] = useState("");
 
-  const eliminarProducto = (id) => {
-  setProductosSeleccionados(prevProductos => prevProductos.filter(producto => producto.id !== id));
-};
+  const eliminarProducto = (indice) => {
+    setProductosSeleccionados((prevProductos) =>
+      prevProductos.filter((producto, index) => index !== indice)
+    );
+    setIndiceProductoPulsado(null);
+  };
+
+  useEffect(() => {
+    setProductosASeleccionar(
+      palabraABuscar != ""
+        ? productos.filter((producto) =>
+            producto.nombre.toLowerCase().includes(palabraABuscar.toLowerCase())
+          )
+        : productos
+    );
+  }, [palabraABuscar]);
+
+  const handleObservaciones = (obs) => {
+    if (indiceProductoPulsado === null) return;
+    const nuevosProductos = productosSeleccionados.map((producto, idx) =>
+      idx === indiceProductoPulsado
+        ? {
+            ...producto,
+            pivot: {
+              ...producto.pivot,
+              observaciones: obs,
+            },
+          }
+        : producto
+    );
+    setProductosSeleccionados(nuevosProductos);
+  };
 
   return (
     <>
       <div className="headerContainer">
         <div className="contenedorBotones">
-          <button onClick={()=>{
-            eliminarProducto(productoPulsado.id);
-            setProductoPulsado(null);
-          }}>Borrar</button>
-          <button>Observaciones</button>
           <button
             onClick={() => {
+              if (indiceProductoPulsado !== null) {
+                eliminarProducto(indiceProductoPulsado);
+              }
+            }}
+            disabled={indiceProductoPulsado === null}
+          >
+            Borrar
+          </button>
+          <button
+            onClick={() => {
+              if (indiceProductoPulsado !== null) {
+                console.log("bieeen");
+                setIsModalObservacionesOpen(true);
+              }
+            }}
+            disabled={indiceProductoPulsado === null}
+          >
+            Observaciones
+          </button>
+          <button
+            onClick={() => {
+              setIndiceProductoPulsado(null);
               navigate("/pedidos");
             }}
           >
@@ -32,14 +88,21 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
         </div>
 
         <div className="medio">
-          <input type="text" name="buscar" id="buscar" />
+          Buscar Producto
+          <input
+            type="text"
+            name="buscar"
+            id="buscar"
+            value={palabraABuscar}
+            onChange={(e) => {
+              setPalabraABuscar(e.target.value);
+            }}
+          />
           <button
-            name="btnBuscar"
-            onClick={() => <BuscarProducto productos={productos} />}
+            onClick={() => {
+              setisModalFinalizarOpen(true);
+            }}
           >
-            Buscar
-          </button>
-          <button onClick={() => setisModalFinalizarOpen(true)}>
             Finalizar
           </button>
         </div>
@@ -50,6 +113,17 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
         productosSeleccionados={productosSeleccionados}
         cliente={cliente}
         nuevoCliente={nuevoCliente}
+      />
+      <ModalObservaciones
+        alEnviar={handleObservaciones}
+        isModalObservacionesOpen={isModalObservacionesOpen}
+        setIsModalObservacionesOpen={setIsModalObservacionesOpen}
+        valorInicial={
+          indiceProductoPulsado !== null
+            ? productosSeleccionados[indiceProductoPulsado]?.pivot
+                ?.observaciones || ""
+            : ""
+        }
       />
     </>
   );

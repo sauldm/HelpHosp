@@ -3,6 +3,7 @@ import ModalGeneral from "./ModalGeneral";
 import { useContext, useState } from "react";
 import ContextoPedidos from "./contexto/ContextoPedidos";
 import ContextoCliente from "./contexto/ContextoCliente";
+import ContextoProductos from "./contexto/ContextoProductos";
 
 const ModalFinalizarPedido = ({
   productosSeleccionados,
@@ -11,23 +12,24 @@ const ModalFinalizarPedido = ({
   isModalFinalizarOpen,
   setisModalFinalizarOpen,
 }) => {
-  const {crearCliente} = useContext(ContextoCliente);
+  const { crearCliente } = useContext(ContextoCliente);
   const [formaDeEncargo, setFormaDeEncargo] = useState("Domicilio");
   const { crearPedido } = useContext(ContextoPedidos);
+  const { setIndiceProductoPulsado } = useContext(ContextoProductos);
   let idProductos = [];
   const navegar = useNavigate();
   let total;
 
   if (!isModalFinalizarOpen) return null;
 
-
-
   function onConfirm() {
-    idProductos = productosSeleccionados.map((producto) => ({
+    const productosFormateados = productosSeleccionados.map((producto) => ({
       producto_id: producto.id,
+      observaciones:
+        producto.observaciones ?? producto.pivot?.observaciones ?? "",
     }));
 
-    if(nuevoCliente) {
+    if (nuevoCliente) {
       crearCliente(nuevoCliente);
       cliente = nuevoCliente;
     }
@@ -35,10 +37,11 @@ const ModalFinalizarPedido = ({
     const nuevoPedido = {
       cliente_telefono: cliente.telefono,
       formaDeEncargo: formaDeEncargo,
-      productos: idProductos,
+      productos: productosFormateados,
     };
     crearPedido(nuevoPedido);
     setisModalFinalizarOpen(false);
+    setIndiceProductoPulsado(null);
     navegar("/pedidos");
   }
 

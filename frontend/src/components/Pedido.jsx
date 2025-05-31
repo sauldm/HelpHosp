@@ -4,7 +4,6 @@ import ContextoPedidos from "./contexto/ContextoPedidos";
 const Pedido = () => {
   const { pedido } = useContext(ContextoPedidos);
 
-  console.log(pedido.productos[0]);
   return (
     <div>
       <p>ID: {pedido.id}</p>
@@ -13,7 +12,11 @@ const Pedido = () => {
       <p>Forma de encargo: {pedido.formaDeEncargo}</p>
       Productos:{" "}
       {pedido.productos.map((producto, index) => {
-        return( <p key={index}>{producto.pivot.cantidad} {producto.nombre}</p>
+        return (
+          <p key={index}>
+            {producto.pivot.cantidad} {producto.nombre}{" "}
+            {producto.pivot.observaciones}
+          </p>
         );
       })}
     </div>

@@ -4,7 +4,8 @@ import ContextoProductos from "./ContextoProductos";
 const ProveedorProductos = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [productosSeleccionados, setProductosSeleccionados] = useState([]);
-  const [productoPulsado, setProductoPulsado] = useState();
+  const [indiceProductoPulsado, setIndiceProductoPulsado] = useState();
+  const [productosASeleccionar, setProductosASeleccionar] = useState([]);
   const API_URL = `${import.meta.env.VITE_API_URL}/productos`;
 
   const getProductos = async () => {
@@ -12,12 +13,11 @@ const ProveedorProductos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setProductos(data);
-      console.log("Productos obtenidos:", data);
+      setProductosASeleccionar(data);
     } else {
       console.error("Error al obtener productos");
     }
   };
-  
 
   const crearProducto = async (producto) => {
     const respuesta = await fetch(API_URL, {
@@ -66,8 +66,10 @@ const ProveedorProductos = ({ children }) => {
     productos,
     productosSeleccionados,
     setProductosSeleccionados,
-    productoPulsado,
-    setProductoPulsado,
+    indiceProductoPulsado,
+    setIndiceProductoPulsado,
+    productosASeleccionar,
+    setProductosASeleccionar,
   };
   return (
     <ContextoProductos.Provider value={exportacion}>
