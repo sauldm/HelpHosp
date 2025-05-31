@@ -5,9 +5,8 @@ import Cargando from "./Cargando";
 import ContextoPedidos from "./contexto/ContextoPedidos";
 
 const ListaPedidos = () => {
-  const { pedidos } = useContext(ContextoPedidos);
+  const { pedidos, getPedido } = useContext(ContextoPedidos);
   const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
-  const [pedidoSeleccionado, setPedidoSeleccionado] = useState();
 
   if (pedidos.length == 0) {
     return (
@@ -25,9 +24,9 @@ const ListaPedidos = () => {
             <div key={index}>
               <button
                 className="btnPedido"
-                onClick={() => {
+                onClick={async () => {
+                  await getPedido(pedido.id);
                   setisModalPedidoOpen(true);
-                  setPedidoSeleccionado(pedido);
                 }}
               >
                 {pedido.id}
@@ -41,7 +40,7 @@ const ListaPedidos = () => {
         setisModalOpen={setisModalPedidoOpen}
         alCerrar={() => null}
       >
-        <Pedido pedido={pedidoSeleccionado} />
+        <Pedido />
       </ModalGeneral>
     </>
   );

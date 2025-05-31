@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 
 const BarraProductosParaPedido = () => {
-  const [productoPulsado, setProductoPulsado] = useState();
-  const { productosSeleccionados } = useContext(ContextoProductos);
+  const { productoPulsado, setProductoPulsado, productosSeleccionados } =
+    useContext(ContextoProductos);
 
   if (!productosSeleccionados || productosSeleccionados.length === 0) {
     return <div className="barraProductosPedido">asd</div>;
@@ -14,13 +14,12 @@ const BarraProductosParaPedido = () => {
         {productosSeleccionados.map((producto, index) => {
           return (
             <div
-              className="productoPedido"
+              className={`productoPedido${
+                productoPulsado === producto ? " pulsado" : ""
+              }`}
               key={index}
               onClick={() => {
                 setProductoPulsado(producto);
-                className === "productoPedido"
-                  ? (className = "productoPedido pulsado")
-                  : (className = "productoPedido");
               }}
             >
               {producto.nombre}

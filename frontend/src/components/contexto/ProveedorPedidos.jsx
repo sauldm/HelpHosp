@@ -3,6 +3,7 @@ import ContextoPedidos from "./ContextoPedidos";
 
 const ProveedorPedidos = ({ children }) => {
   const [pedidos, setPedidos] = useState([]);
+  const [pedido, setPedido] = useState();
   const API_URL = `${import.meta.env.VITE_API_URL}/pedidos`;
 
   const getPedidos = async () => {
@@ -14,6 +15,18 @@ const ProveedorPedidos = ({ children }) => {
       console.log("Pedidos obtenidos:", data);
     } else {
       console.log("error al obtener pedidos");
+    }
+  };
+
+
+const getPedido = async (id) => {
+    const respuesta = await fetch(API_URL+ "/" + id);
+    if (respuesta.ok) {
+      const data = await respuesta.json();
+      setPedido(data);
+      console.log("Pedido obtenido:", data);
+    } else {
+      console.log("error al obtener pedido");
     }
   };
 
@@ -50,10 +63,12 @@ const ProveedorPedidos = ({ children }) => {
 
   const exportacion = {
     getPedidos,
+    getPedido,
     crearPedido,
     modificarPedido,
     eliminarPedido,
     pedidos,
+    pedido,
   };
 
   return (

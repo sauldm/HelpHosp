@@ -120,6 +120,7 @@ class PedidoController extends Controller
                 ];
             }
             $pedido->productos()->sync($productosSync);
+            Log::info('Pedido creado exitosamente',$productosSync);
         }
 
         return response()->json($pedido->load('productos', 'cliente'));

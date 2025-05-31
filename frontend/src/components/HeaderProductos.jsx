@@ -5,15 +5,22 @@ import { useContext, useState } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 
 const HeaderProductos = ({ cliente, nuevoCliente }) => {
-  const {productosSeleccionados, productos} = useContext(ContextoProductos);
+  const {productosSeleccionados,setProductosSeleccionados, productos, productoPulsado, setProductoPulsado} = useContext(ContextoProductos);
   const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
   const navigate = useNavigate();
+
+  const eliminarProducto = (id) => {
+  setProductosSeleccionados(prevProductos => prevProductos.filter(producto => producto.id !== id));
+};
 
   return (
     <>
       <div className="headerContainer">
         <div className="contenedorBotones">
-          <button>Borrar</button>
+          <button onClick={()=>{
+            eliminarProducto(productoPulsado.id);
+            setProductoPulsado(null);
+          }}>Borrar</button>
           <button>Observaciones</button>
           <button
             onClick={() => {
