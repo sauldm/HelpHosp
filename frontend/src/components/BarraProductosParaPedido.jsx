@@ -12,18 +12,6 @@ const BarraProductosParaPedido = () => {
     return <div className="barraProductosPedido">asd</div>;
   }
 
-  function hayObservaciones(producto) {
-    try {
-      if (producto.pivot.observaciones) {
-        return (
-          <span className="observaciones">{producto.pivot.observaciones}</span>
-        );
-      }
-    } catch (error) {
-      return null;
-    }
-  }
-
   return (
     <>
       <div className="barraProductosPedido">
@@ -39,7 +27,9 @@ const BarraProductosParaPedido = () => {
               }}
             >
               {producto.nombre}
-              {hayObservaciones(producto)}
+              <p>
+                {producto.observaciones ?? producto.pivot?.observaciones ?? ""}
+              </p>
             </div>
           );
         })}

@@ -7,7 +7,7 @@ const ProveedorPedidos = ({ children }) => {
   const API_URL = `${import.meta.env.VITE_API_URL}/pedidos`;
 
   const getPedidos = async () => {
-  console.log(API_URL)
+    console.log(API_URL);
     const respuesta = await fetch(API_URL);
     if (respuesta.ok) {
       const data = await respuesta.json();
@@ -18,9 +18,8 @@ const ProveedorPedidos = ({ children }) => {
     }
   };
 
-
-const getPedido = async (id) => {
-    const respuesta = await fetch(API_URL+ "/" + id);
+  const getPedido = async (id) => {
+    const respuesta = await fetch(API_URL + "/" + id);
     if (respuesta.ok) {
       const data = await respuesta.json();
       setPedido(data);
@@ -37,24 +36,31 @@ const getPedido = async (id) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(pedido),
-    }).then (()=> getPedidos())
-    .catch((error) => console.error("Error al crear pedido:", error));
+    })
+      .then(() => getPedidos())
+      .catch((error) => console.error("Error al crear pedido:", error));
   };
 
-  const modificarPedido =  (pedido) => {
+  const modificarPedido = (pedido) => {
     fetch(API_URL + "/" + pedido.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(pedido),
     })
-    .then(() => getPedidos())
-    .catch((error) => console.error("Error al modificar pedido:", error));
+      .then(() => getPedidos())
+      .catch((error) => console.error("Error al modificar pedido:", error));
   };
 
   const eliminarPedido = (pedido) => {
     fetch(API_URL + "/" + pedido.id, { method: "DELETE" })
-    .then(() => getPedidos())
-    .catch((error) => console.error("Error al eliminar pedido:", error));
+      .then(() => getPedidos())
+      .catch((error) => console.error("Error al eliminar pedido:", error));
+  };
+
+  const eliminarPedidos = async () => {
+    await fetch(API_URL, { method: "DELETE" })
+      .then(() => getPedidos())
+      .catch((error) => console.error("Error al eliminar pedidos:", error));
   };
 
   useEffect(() => {
@@ -67,6 +73,7 @@ const getPedido = async (id) => {
     crearPedido,
     modificarPedido,
     eliminarPedido,
+    eliminarPedidos,
     pedidos,
     pedido,
   };

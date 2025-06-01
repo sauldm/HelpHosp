@@ -120,7 +120,7 @@ class PedidoController extends Controller
                 ];
             }
             $pedido->productos()->sync($productosSync);
-            Log::info('Pedido creado exitosamente',$productosSync);
+            Log::info('Pedido creado exitosamente', $productosSync);
         }
 
         return response()->json($pedido->load('productos', 'cliente'));
@@ -138,14 +138,19 @@ class PedidoController extends Controller
     public function resetPedidos()
     {
         DB::beginTransaction();
+
         try {
-            DB::table('pedido_productos')->delete(); // nombre correcto tabla pivote
-            Pedido::truncate();
+            DB::table('pedido_productos')->delete();
+            DB::table('pedidos')->delete();
+
             DB::commit();
             return response()->json(['message' => 'Todos los pedidos han sido eliminados.'], 200);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Error al eliminar pedidos.'], 500);
+            return response()->json([
+                'error' => 'Error al eliminar pedidos.',
+                'detalle' => $e->getMessage(), // útil para debug
+            ], 500);
         }
     }
 }

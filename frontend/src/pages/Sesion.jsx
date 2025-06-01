@@ -1,13 +1,24 @@
+import { useContext } from "react";
 import Empleados from "../components/Empleados";
 import NavbarGeneral from "../components/NavbarGeneral";
+import ContextoPedidos from "../components/contexto/ContextoPedidos";
+import { useNavigate } from "react-router-dom";
 
 const Sesion = () => {
-  //Implementar si es repartidor o no, si lo es le seldrá la cuenta tanto en la pantalla como impresa
+  const { eliminarPedidos } = useContext(ContextoPedidos);
+  const navegar = useNavigate();
   return (
     <div className="body">
       <NavbarGeneral />
       <div className="contenido">
-        <p>Sesion</p>
+        <button
+          onClick={() => {
+            eliminarPedidos();
+            navegar("/");
+          }}
+        >
+          Cerrar Sesión
+        </button>
       </div>
       <Empleados />
     </div>

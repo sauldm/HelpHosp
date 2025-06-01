@@ -64,12 +64,12 @@ button {
   transition: all 0.3s ease;
 }
 
-.btnPedido {
+.btnPedido-domicilio,
+.btnPedido-recoger {
   margin: 10px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #e74c3c, #c0392b);
   color: white;
   display: flex;
   justify-content: center;
@@ -79,8 +79,15 @@ button {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+.btnPedido-domicilio {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+}
+.btnPedido-recoger {
+  background: linear-gradient(145deg, #f39c12, #e67e22);
+}
 
-.btnPedido:hover {
+.btnPedido-domicilio:hover,
+.btnPedido-recoger:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -459,4 +466,31 @@ footer {
   font-weight: bold;
   border-left: 4px solid #43a047;
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+}
+
+.derecha {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  font-size: 16px;
+}
+
+.derecha button {
+  padding: 8px 12px;
+  font-size: 14px;
+  height: 32px;
+  background: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(25, 118, 210, 0.08);
+  border: 1px solid rgba(25, 118, 210, 0.15);
+  margin: 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+.derecha button:hover {
+  background: #1976d2;
+  color: #fff;
 }

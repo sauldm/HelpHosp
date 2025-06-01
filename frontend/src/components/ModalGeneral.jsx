@@ -9,6 +9,7 @@ const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
         isOpen={isModalOpen}
         onRequestClose={() => {
           setisModalOpen(false);
+          alCerrar ? alCerrar() : null;
         }}
         style={{
           content: {
@@ -28,7 +29,7 @@ const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
           className="cerrarModal"
           onClick={() => {
             setisModalOpen(false);
-            alCerrar;
+            alCerrar ? alCerrar() : null;
           }}
         >
           Cerrar

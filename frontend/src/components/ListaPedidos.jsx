@@ -23,7 +23,11 @@ const ListaPedidos = () => {
           <>
             <div key={index}>
               <button
-                className="btnPedido"
+                className={
+                  pedido.formaDeEncargo == "Domicilio"
+                    ? "btnPedido-domicilio"
+                    : "btnPedido-recoger"
+                }
                 onClick={async () => {
                   await getPedido(pedido.id);
                   setisModalPedidoOpen(true);
