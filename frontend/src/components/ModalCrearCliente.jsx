@@ -17,11 +17,7 @@ import ModalGeneral from "./ModalGeneral";
 const ModalCrearCliente = ({ telefono, alEnviar }) => {
   const { clientes } = useContext(ContextoCliente);
   const navegar = useNavigate();
-  /**
-   * @state {boolean} isModalClienteOpen - Controla la visibilidad del modal
-   * @state {string} nombre - Nombre del nuevo cliente
-   * @state {string} domicilio - Domicilio del nuevo cliente
-   */
+  
   const [isModalClienteOpen, setisModalClienteOpen] = useState(true);
   const [nombre, setNombre] = useState("");
   const [domicilio, setDomicilio] = useState("");
@@ -72,27 +68,33 @@ const ModalCrearCliente = ({ telefono, alEnviar }) => {
         isModalOpen={isModalClienteOpen}
         setisModalOpen={setisModalClienteOpen}
         alCerrar={() => navegar("/pedidos")}
+        titulo="Nuevo Cliente"
       >
-        <form onSubmit={manejarEnvio}>
+        <p className="modal-description">
+          Por favor, ingrese los datos del nuevo cliente para el teléfono {telefono}
+        </p>
+        <form onSubmit={manejarEnvio} className="modal-form">
           <label>
-            Nombre:
+            Nombre
             <input
               type="text"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
+              placeholder="Ingrese el nombre del cliente"
               required
             />
           </label>
           <label>
-            Domicilio:
+            Domicilio
             <input
               type="text"
               value={domicilio}
               onChange={(e) => setDomicilio(e.target.value)}
+              placeholder="Ingrese el domicilio del cliente"
             />
           </label>
 
-          <input type="submit" value="Crear Cliente" />
+          <button type="submit">Crear Cliente</button>
         </form>
       </ModalGeneral>
     );

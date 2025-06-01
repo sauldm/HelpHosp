@@ -11,40 +11,41 @@ import { useNavigate } from "react-router-dom";
  * @param {Function} props.setisModalOpen - Función para actualizar el estado de apertura del modal
  * @param {React.ReactNode} props.children - Contenido que se renderizará dentro del modal
  * @param {Function} [props.alCerrar] - Función opcional que se ejecuta al cerrar el modal
+ * @param {string} [props.titulo] - Título opcional para mostrar en el encabezado del modal
  * 
  * @returns {JSX.Element} Retorna un componente Modal con estructura y estilos predefinidos
  */
-const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
+const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar, titulo }) => {
   const navegar = useNavigate();
+
+  const handleClose = () => {
+    setisModalOpen(false);
+    if (alCerrar) alCerrar();
+  };
+
   return (
-    <>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => {
-          setisModalOpen(false);
-          alCerrar ? alCerrar() : null;
-        }}
-        className="modal"
-        overlayClassName="modal-overlay"
-      >
-        <div className="modal-content">
-          <div className="modal-header">
-            <button
-              className="modal-close"
-              onClick={() => {
-                setisModalOpen(false);
-                alCerrar ? alCerrar() : null;
-              }}
-            >
-              ✕
-            </button>
-          </div>
-          <div className="modal-body">
-            {children}
-          </div>
+    <Modal
+      isOpen={isModalOpen}
+      onRequestClose={handleClose}
+      className="modal"
+      overlayClassName="modal-overlay"
+    >
+      <div className="modal-content">
+        <div className="modal-header">
+          {titulo && <h2 className="modal-title">{titulo}</h2>}
+          <button
+            className="modal-close"
+            onClick={handleClose}
+            aria-label="Cerrar modal"
+          >
+            ✕
+          </button>
         </div>
-      </Modal>
-    </>
+        <div className="modal-body">
+          {children}
+        </div>
+      </div>
+    </Modal>
   );
 };
 

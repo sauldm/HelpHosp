@@ -7,10 +7,17 @@ import ContextoPedidos from "./contexto/ContextoPedidos";
 const ListaPedidos = () => {
   const { pedidos, getPedido } = useContext(ContextoPedidos);
   const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
+  const [selectedPedido, setSelectedPedido] = useState(null);
 
   if (pedidos.length == 0) {
     return <Cargando />;
   }
+
+  const handlePedidoClick = async (pedido) => {
+    setSelectedPedido(pedido);
+    await getPedido(pedido.id);
+    setisModalPedidoOpen(true);
+  };
 
   return (
     <>
@@ -23,10 +30,7 @@ const ListaPedidos = () => {
                 ? "btnPedido-domicilio"
                 : "btnPedido-recoger"
             }`}
-            onClick={async () => {
-              await getPedido(pedido.id);
-              setisModalPedidoOpen(true);
-            }}
+            onClick={() => handlePedidoClick(pedido)}
           >
             {pedido.id}
           </button>
@@ -35,7 +39,7 @@ const ListaPedidos = () => {
       <ModalGeneral
         isModalOpen={isModalPedidoOpen}
         setisModalOpen={setisModalPedidoOpen}
-        alCerrar={() => null}
+        titulo={`Pedido #${selectedPedido?.id || ''}`}
       >
         <Pedido />
       </ModalGeneral>

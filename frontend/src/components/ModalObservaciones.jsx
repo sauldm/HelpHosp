@@ -48,18 +48,23 @@ const ModalObservaciones = ({
     <ModalGeneral
       isModalOpen={isModalObservacionesOpen}
       setisModalOpen={setIsModalObservacionesOpen}
+      titulo="Agregar Observación"
     >
-      <form onSubmit={manejarEnvio}>
+      <p className="modal-description">
+        Agregue cualquier nota o especificación especial para este producto
+      </p>
+      <form onSubmit={manejarEnvio} className="modal-form">
         <label>
-          Observación:
+          Observación
           <input
             type="text"
             value={observacion}
             onChange={(e) => setObservacion(e.target.value)}
+            placeholder="Escriba aquí su observación"
             required
           />
         </label>
-        <input type="submit" value="Crear Observación" />
+        <button type="submit">Guardar Observación</button>
       </form>
     </ModalGeneral>
   );

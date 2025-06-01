@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModalGeneral from "./ModalGeneral";
 
+/**
+ * @component ModalCrearProducto
+ * @description Modal para crear un nuevo producto con nombre, ingredientes y precio.
+ */
 const ModalCrearProducto = ({
   isModalProductoOpen,
   setisModalProductoOpen,
@@ -35,38 +39,47 @@ const ModalCrearProducto = ({
     <ModalGeneral
       isModalOpen={isModalProductoOpen}
       setisModalOpen={setisModalProductoOpen}
+      titulo="Nuevo Producto"
     >
-      <form onSubmit={manejarEnvio}>
+      <p className="modal-description">
+        Complete los detalles del nuevo producto a agregar al menú
+      </p>
+      <form onSubmit={manejarEnvio} className="modal-form">
         <label>
-          Nombre:
+          Nombre
           <input
             type="text"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
+            placeholder="Ingrese el nombre del producto"
             required
           />
         </label>
         <label>
-          Ingredientes:
+          Ingredientes
           <input
             type="text"
             value={ingredientes}
             onChange={(e) => setIngredientes(e.target.value)}
+            placeholder="Ingrese los ingredientes"
+            required
           />
         </label>
 
         <label>
-          Precio:
+          Precio
           <input
-            type="text"
+            type="number"
             value={precio}
             onChange={(e) => setPrecio(e.target.value)}
+            placeholder="0.00"
+            step="0.01"
+            min="0"
             required
-            pattern="^\d+(\.\d{1,2})?$"
           />
         </label>
 
-        <input type="submit" value="Crear Producto" />
+        <button type="submit">Crear Producto</button>
       </form>
     </ModalGeneral>
   );
