@@ -1,6 +1,19 @@
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * @component ModalGeneral
+ * @description Componente de modal reutilizable que proporciona una ventana modal
+ * con funcionalidad de cierre y contenido personalizable.
+ * 
+ * @param {Object} props - Propiedades del componente
+ * @param {boolean} props.isModalOpen - Estado que controla si el modal está abierto o cerrado
+ * @param {Function} props.setisModalOpen - Función para actualizar el estado de apertura del modal
+ * @param {React.ReactNode} props.children - Contenido que se renderizará dentro del modal
+ * @param {Function} [props.alCerrar] - Función opcional que se ejecuta al cerrar el modal
+ * 
+ * @returns {JSX.Element} Retorna un componente Modal con estructura y estilos predefinidos
+ */
 const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
   const navegar = useNavigate();
   return (

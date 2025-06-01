@@ -1,3 +1,10 @@
+/**
+ * @component Footer
+ * @description Componente de pie de página que muestra información básica de la aplicación
+ * y el copyright. Incluye el nombre de la aplicación, un eslogan y el año actual.
+ * 
+ * @returns {JSX.Element} Retorna el componente de pie de página con la información de la aplicación
+ */
 const Footer = () => {
   return (
     <footer>
