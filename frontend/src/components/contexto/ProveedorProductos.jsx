@@ -30,6 +30,7 @@ const ProveedorProductos = ({ children }) => {
     if (respuesta.ok) {
       const data = await respuesta.json();
       setProductos((previo) => [...previo, data]);
+      setProductosASeleccionar((previo) => [...previo, data]);
     } else console.error("Error al crear producto");
   };
 

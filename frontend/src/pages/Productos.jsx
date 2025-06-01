@@ -28,6 +28,7 @@ const Productos = () => {
       </>
     );
   }
+
   useEffect(() => {
     setProductosSeleccionados([]);
   }, []);
@@ -37,10 +38,9 @@ const Productos = () => {
   }
 
   return (
-    <div className="pagina">
+    <div className="pagina-productos">
       <HeaderProductos cliente={cliente} nuevoCliente={nuevoCliente}/>
-
-      <div className="body">
+      <div className="productos-contenedor">
         <BarraProductosParaPedido />
         <div className="contenido">
           {!existeClientesYProductos() ? <Cargando /> : siHayClientes()}

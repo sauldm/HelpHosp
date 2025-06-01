@@ -15,40 +15,71 @@ const HeaderGeneral = () => {
   return (
     <>
       <header>
-        <button onClick={() => setisModalTelefonoOpen(true)}>Pedido Teléfono</button>
+        <div className="headerContainer">
+          <div className="header-group">
+            <button 
+              onClick={() => setisModalTelefonoOpen(true)}
+              className="header-button"
+            >
+              <span className="icon">📞</span>
+              <span className="text">Pedido Teléfono</span>
+            </button>
+            <button 
+              onClick={() => navigate("/terraza")}
+              className="header-button"
+            >
+              <span className="icon">🌳</span>
+              <span className="text">Pedido Terraza</span>
+            </button>
+            <button 
+              onClick={() => navigate("/barra")}
+              className="header-button"
+            >
+              <span className="icon">🍺</span>
+              <span className="text">Pedido Barra</span>
+            </button>
+          </div>
+          
+          <button
+            className="header-button add-products"
+            onClick={() => navigate("/anyadirProductos")}
+          >
+            <span className="icon">➕</span>
+            <span className="text">Productos</span>
+          </button>
+        </div>
+
         <ModalGeneral
           isModalOpen={isModalTelefonoOpen}
           setisModalOpen={setisModalTelefonoOpen}
         >
           <form
+            className="phone-form"
             onSubmit={(e) => {
-              e.preventDefault;
+              e.preventDefault();
               if (isTelefonoValido()) {
                 setisModalTelefonoOpen(false);
-                return navigate("productos/" + telefono);
+                navigate("productos/" + telefono);
               }
             }}
           >
-            <label>
-              Teléfono:
+            <div className="form-group">
+              <label htmlFor="telefono">Número de teléfono:</label>
               <input
-                type="text"
+                id="telefono"
+                type="tel"
+                pattern="[0-9]{9}"
                 value={telefono}
                 onChange={(e) => setTelefono(e.target.value)}
+                placeholder="Introduce 9 dígitos"
+                required
               />
-            </label>
-            <input type="submit" />
+            </div>
+            <button type="submit" className="submit-button">
+              Continuar
+            </button>
           </form>
         </ModalGeneral>
-
-        <button onClick={() => navigate("/terraza")}>Pedido Terraza</button>
-        <button onClick={() => navigate("/barra")}>Pedido Barra</button>
-        <button
-          className="anyadirProductos"
-          onClick={() => navigate("/anyadirProductos")}
-        >
-          +Productos
-        </button>
       </header>
     </>
   );

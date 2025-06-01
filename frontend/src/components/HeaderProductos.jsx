@@ -54,59 +54,64 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
 
   return (
     <>
-      <div className="headerContainer">
-        <div className="contenedorBotones">
-          <button
-            onClick={() => {
-              if (indiceProductoPulsado !== null) {
-                eliminarProducto(indiceProductoPulsado);
-              }
-            }}
-            disabled={indiceProductoPulsado === null}
-          >
-            Borrar
-          </button>
-          <button
-            onClick={() => {
-              if (indiceProductoPulsado !== null) {
-                console.log("bieeen");
-                setIsModalObservacionesOpen(true);
-              }
-            }}
-            disabled={indiceProductoPulsado === null}
-          >
-            Observaciones
-          </button>
-          <button
-            onClick={() => {
-              setIndiceProductoPulsado(null);
-              navigate("/pedidos");
-            }}
-          >
-            Descartar
-          </button>
-        </div>
+      <header>
+        <div className="headerContainer">
+          <div className="header-group">
+            <button
+              className="header-button"
+              onClick={() => {
+                if (indiceProductoPulsado !== null) {
+                  eliminarProducto(indiceProductoPulsado);
+                }
+              }}
+              disabled={indiceProductoPulsado === null}
+            >
+              <span className="icon">🗑️</span>
+              <span className="text">Borrar</span>
+            </button>
+            <button
+              className="header-button"
+              onClick={() => {
+                if (indiceProductoPulsado !== null) {
+                  setIsModalObservacionesOpen(true);
+                }
+              }}
+              disabled={indiceProductoPulsado === null}
+            >
+              <span className="icon">✏️</span>
+              <span className="text">Observaciones</span>
+            </button>
+            <button
+              className="header-button"
+              onClick={() => {
+                setIndiceProductoPulsado(null);
+                navigate("/pedidos");
+              }}
+            >
+              <span className="icon">❌</span>
+              <span className="text">Descartar</span>
+            </button>
+          </div>
 
-        <div className="medio">
-          Buscar Producto
-          <input
-            type="text"
-            name="buscar"
-            id="buscar"
-            value={palabraABuscar}
-            onChange={(e) => {
-              setPalabraABuscar(e.target.value);
-            }}
-          />
+          <div className="productos-search">
+            <input
+              type="text"
+              placeholder="Buscar producto..."
+              value={palabraABuscar}
+              onChange={(e) => setPalabraABuscar(e.target.value)}
+            />
+          </div>
+
           <button
-            onClick={() => {
-              setisModalFinalizarOpen(true);
-            }}
+            className="header-button add-products"
+            onClick={() => setisModalFinalizarOpen(true)}
           >
-            Finalizar
+            <span className="icon">✅</span>
+            <span className="text">Finalizar</span>
           </button>
         </div>
-      </div>
+      </header>
+
       <ModalFinalizarPedido
         isModalFinalizarOpen={isModalFinalizarOpen}
         setisModalFinalizarOpen={setisModalFinalizarOpen}

@@ -9,34 +9,27 @@ const ListaPedidos = () => {
   const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
 
   if (pedidos.length == 0) {
-    return (
-      <div className="body">
-        <Cargando />
-      </div>
-    );
+    return <Cargando />;
   }
 
   return (
     <>
       <div className="pedidos">
         {pedidos.map((pedido, index) => (
-          <>
-            <div key={index}>
-              <button
-                className={
-                  pedido.formaDeEncargo == "Domicilio"
-                    ? "btnPedido-domicilio"
-                    : "btnPedido-recoger"
-                }
-                onClick={async () => {
-                  await getPedido(pedido.id);
-                  setisModalPedidoOpen(true);
-                }}
-              >
-                {pedido.id}
-              </button>
-            </div>
-          </>
+          <button
+            key={index}
+            className={`btnPedido-base ${
+              pedido.formaDeEncargo === "Domicilio"
+                ? "btnPedido-domicilio"
+                : "btnPedido-recoger"
+            }`}
+            onClick={async () => {
+              await getPedido(pedido.id);
+              setisModalPedidoOpen(true);
+            }}
+          >
+            {pedido.id}
+          </button>
         ))}
       </div>
       <ModalGeneral
@@ -49,4 +42,5 @@ const ListaPedidos = () => {
     </>
   );
 };
+
 export default ListaPedidos;

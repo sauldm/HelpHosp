@@ -25,11 +25,10 @@ const ModalCrearProducto = ({
       };
       alEnviar(nuevoProducto);
       setisModalProductoOpen(false);
-    } else {
-      setNombre("");
-      setIngredientes("");
-      setPrecio(0.0);
     }
+    setNombre("");
+    setIngredientes("");
+    setPrecio(0.0);
   }
 
   return (

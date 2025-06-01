@@ -11,29 +11,25 @@ const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
           setisModalOpen(false);
           alCerrar ? alCerrar() : null;
         }}
-        style={{
-          content: {
-            width: "500px",
-            height: "300px",
-            margin: "auto",
-            padding: "20px",
-            borderRadius: "10px",
-          },
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-        }}
+        className="modal"
+        overlayClassName="modal-overlay"
       >
-        {children}
-        <button
-          className="cerrarModal"
-          onClick={() => {
-            setisModalOpen(false);
-            alCerrar ? alCerrar() : null;
-          }}
-        >
-          Cerrar
-        </button>
+        <div className="modal-content">
+          <div className="modal-header">
+            <button
+              className="modal-close"
+              onClick={() => {
+                setisModalOpen(false);
+                alCerrar ? alCerrar() : null;
+              }}
+            >
+              ✕
+            </button>
+          </div>
+          <div className="modal-body">
+            {children}
+          </div>
+        </div>
       </Modal>
     </>
   );
