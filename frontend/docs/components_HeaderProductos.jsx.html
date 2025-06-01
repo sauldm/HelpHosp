@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/HeaderProductos.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/HeaderProductos.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useNavigate } from "react-router-dom";
+import ModalFinalizarPedido from "./ModalFinalizarPedido";
+import { useContext, useEffect, useState } from "react";
+import ContextoProductos from "./contexto/ContextoProductos";
+import ModalObservaciones from "./ModalObservaciones";
+
+/**
+ * @component HeaderProductos
+ * @description Componente de encabezado para la página de productos que proporciona
+ * funcionalidades para gestionar productos seleccionados, incluyendo eliminación,
+ * observaciones, búsqueda y finalización de pedido.
+ * 
+ * @param {Object} props - Propiedades del componente
+ * @param {Object} props.cliente - Información del cliente actual
+ * @param {Object} props.nuevoCliente - Información del nuevo cliente si se está creando uno
+ * 
+ * @returns {JSX.Element} Retorna el encabezado con controles para gestionar productos
+ */
+const HeaderProductos = ({ cliente, nuevoCliente }) => {
+  /**
+   * @context ContextoProductos
+   * @property {Array} productosSeleccionados - Lista de productos seleccionados
+   * @property {Function} setProductosSeleccionados - Función para actualizar productos seleccionados
+   * @property {number} indiceProductoPulsado - Índice del producto actualmente seleccionado
+   * @property {Function} setIndiceProductoPulsado - Función para actualizar el índice seleccionado
+   * @property {Function} setProductosASeleccionar - Función para actualizar la lista de productos disponibles
+   * @property {Array} productos - Lista completa de productos
+   */
+  const {
+    productosSeleccionados,
+    setProductosSeleccionados,
+    indiceProductoPulsado,
+    setIndiceProductoPulsado,
+    setProductosASeleccionar,
+    productos,
+  } = useContext(ContextoProductos);
+
+  /**
+   * @state {boolean} isModalFinalizarOpen - Controla la visibilidad del modal de finalización
+   * @state {boolean} isModalObservacionesOpen - Controla la visibilidad del modal de observaciones
+   * @state {string} palabraABuscar - Término de búsqueda para filtrar productos
+   */
+  const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
+  const [isModalObservacionesOpen, setIsModalObservacionesOpen] = useState(false);
+  const navigate = useNavigate();
+  const [palabraABuscar, setPalabraABuscar] = useState("");
+
+  /**
+   * @function eliminarProducto
+   * @description Elimina un producto de la lista de seleccionados
+   * @param {number} indice - Índice del producto a eliminar
+   */
+  const eliminarProducto = (indice) => {
+    setProductosSeleccionados((prevProductos) =>
+      prevProductos.filter((producto, index) => index !== indice)
+    );
+    setIndiceProductoPulsado(null);
+  };
+
+  /**
+   * @effect
+   * @description Efecto que filtra los productos según el término de búsqueda
+   */
+  useEffect(() => {
+    setProductosASeleccionar(
+      palabraABuscar != ""
+        ? productos.filter((producto) =>
+            producto.nombre.toLowerCase().includes(palabraABuscar.toLowerCase())
+          )
+        : productos
+    );
+  }, [palabraABuscar]);
+
+  /**
+   * @function handleObservaciones
+   * @description Maneja la actualización de observaciones para un producto seleccionado
+   * @param {string} obs - Texto de las observaciones
+   */
+  const handleObservaciones = (obs) => {
+    if (indiceProductoPulsado === null) return;
+    const nuevosProductos = productosSeleccionados.map((producto, idx) =>
+      idx === indiceProductoPulsado
+        ? {
+            ...producto,
+            pivot: {
+              ...producto.pivot,
+              observaciones: obs,
+            },
+          }
+        : producto
+    );
+    setProductosSeleccionados(nuevosProductos);
+  };
+
+  return (
+    &lt;>
+      &lt;header>
+        &lt;div className="headerContainer">
+          &lt;div className="header-group">
+            &lt;button
+              className="header-button"
+              onClick={() => {
+                if (indiceProductoPulsado !== null) {
+                  eliminarProducto(indiceProductoPulsado);
+                }
+              }}
+              disabled={indiceProductoPulsado === null}
+            >
+              &lt;span className="icon">🗑️&lt;/span>
+              &lt;span className="text">Borrar&lt;/span>
+            &lt;/button>
+            &lt;button
+              className="header-button"
+              onClick={() => {
+                if (indiceProductoPulsado !== null) {
+                  setIsModalObservacionesOpen(true);
+                }
+              }}
+              disabled={indiceProductoPulsado === null}
+            >
+              &lt;span className="icon">✏️&lt;/span>
+              &lt;span className="text">Observaciones&lt;/span>
+            &lt;/button>
+            &lt;button
+              className="header-button"
+              onClick={() => {
+                setIndiceProductoPulsado(null);
+                navigate("/pedidos");
+              }}
+            >
+              &lt;span className="icon">❌&lt;/span>
+              &lt;span className="text">Descartar&lt;/span>
+            &lt;/button>
+          &lt;/div>
+
+          &lt;div className="productos-search">
+            &lt;input
+              type="text"
+              placeholder="Buscar producto..."
+              value={palabraABuscar}
+              onChange={(e) => setPalabraABuscar(e.target.value)}
+            />
+          &lt;/div>
+
+          &lt;button
+            className="header-button add-products"
+            onClick={() => setisModalFinalizarOpen(true)}
+          >
+            &lt;span className="icon">✅&lt;/span>
+            &lt;span className="text">Finalizar&lt;/span>
+          &lt;/button>
+        &lt;/div>
+      &lt;/header>
+
+      &lt;ModalFinalizarPedido
+        isModalFinalizarOpen={isModalFinalizarOpen}
+        setisModalFinalizarOpen={setisModalFinalizarOpen}
+        productosSeleccionados={productosSeleccionados}
+        cliente={cliente}
+        nuevoCliente={nuevoCliente}
+      />
+      &lt;ModalObservaciones
+        alEnviar={handleObservaciones}
+        isModalObservacionesOpen={isModalObservacionesOpen}
+        setIsModalObservacionesOpen={setIsModalObservacionesOpen}
+        valorInicial={
+          indiceProductoPulsado !== null
+            ? productosSeleccionados[indiceProductoPulsado]?.pivot
+                ?.observaciones || ""
+            : ""
+        }
+      />
+    &lt;/>
+  );
+};
+
+export default HeaderProductos;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AnyadirProductos">AnyadirProductos</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#BarraProductosParaPedido">BarraProductosParaPedido</a></li><li><a href="global.html#Cargando">Cargando</a></li><li><a href="global.html#Empleados">Empleados</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderGeneral">HeaderGeneral</a></li><li><a href="global.html#HeaderProductos">HeaderProductos</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#ListaProductos">ListaProductos</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#ModalCrearCliente">ModalCrearCliente</a></li><li><a href="global.html#ModalFinalizarPedido">ModalFinalizarPedido</a></li><li><a href="global.html#ModalGeneral">ModalGeneral</a></li><li><a href="global.html#ModalObservaciones">ModalObservaciones</a></li><li><a href="global.html#NavbarGeneral">NavbarGeneral</a></li><li><a href="global.html#Pedidos">Pedidos</a></li><li><a href="global.html#Producto">Producto</a></li><li><a href="global.html#Productos">Productos</a></li><li><a href="global.html#ProveedorProductos">ProveedorProductos</a></li><li><a href="global.html#Rutas">Rutas</a></li><li><a href="global.html#Sesion">Sesion</a></li><li><a href="global.html#Terraza">Terraza</a></li><li><a href="global.html#crearProducto">crearProducto</a></li><li><a href="global.html#eliminarProducto">eliminarProducto</a></li><li><a href="global.html#existeClientesYProductos">existeClientesYProductos</a></li><li><a href="global.html#getProductos">getProductos</a></li><li><a href="global.html#handleObservaciones">handleObservaciones</a></li><li><a href="global.html#isFormValido">isFormValido</a></li><li><a href="global.html#isTelefonoDeCliente">isTelefonoDeCliente</a></li><li><a href="global.html#isTelefonoValido">isTelefonoValido</a></li><li><a href="global.html#manejarClick">manejarClick</a></li><li><a href="global.html#manejarEnvio">manejarEnvio</a></li><li><a href="global.html#modificarProducto">modificarProducto</a></li><li><a href="global.html#onConfirm">onConfirm</a></li><li><a href="global.html#patronTelefono">patronTelefono</a></li><li><a href="global.html#siHayClientes">siHayClientes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jun 01 2025 16:17:30 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ModalFinalizarPedido.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ModalFinalizarPedido.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useNavigate } from "react-router-dom";
+import ModalGeneral from "./ModalGeneral";
+import { useContext, useState } from "react";
+import ContextoPedidos from "./contexto/ContextoPedidos";
+import ContextoCliente from "./contexto/ContextoCliente";
+import ContextoProductos from "./contexto/ContextoProductos";
+
+/**
+ * @component ModalFinalizarPedido
+ * @description Modal que permite finalizar un pedido, mostrando el total,
+ * permitiendo seleccionar la forma de encargo y confirmando la operación.
+ * Maneja la creación de nuevos clientes si es necesario.
+ * 
+ * @param {Object} props - Propiedades del componente
+ * @param {Array} props.productosSeleccionados - Lista de productos en el pedido
+ * @param {Object} props.cliente - Cliente existente que realiza el pedido
+ * @param {Object} props.nuevoCliente - Datos del nuevo cliente si se está creando uno
+ * @param {boolean} props.isModalFinalizarOpen - Estado de visibilidad del modal
+ * @param {Function} props.setisModalFinalizarOpen - Función para controlar la visibilidad del modal
+ * 
+ * @returns {JSX.Element|null} Retorna el modal de finalización de pedido o null si está cerrado
+ */
+const ModalFinalizarPedido = ({
+  productosSeleccionados,
+  cliente,
+  nuevoCliente,
+  isModalFinalizarOpen,
+  setisModalFinalizarOpen,
+}) => {
+  /**
+   * @context
+   * @property {Function} crearCliente - Función para crear un nuevo cliente
+   * @property {Function} crearPedido - Función para crear un nuevo pedido
+   * @property {Function} setIndiceProductoPulsado - Función para actualizar el producto seleccionado
+   */
+  const { crearCliente } = useContext(ContextoCliente);
+  const { crearPedido } = useContext(ContextoPedidos);
+  const { setIndiceProductoPulsado } = useContext(ContextoProductos);
+
+  /**
+   * @state {string} formaDeEncargo - Forma de entrega del pedido (Domicilio/Recoger)
+   */
+  const [formaDeEncargo, setFormaDeEncargo] = useState("Domicilio");
+  
+  let idProductos = [];
+  const navegar = useNavigate();
+  let total;
+
+  if (!isModalFinalizarOpen) return null;
+
+  /**
+   * @function onConfirm
+   * @description Maneja la confirmación del pedido, creando el cliente si es nuevo,
+   * formateando los productos y creando el pedido en el sistema
+   */
+  function onConfirm() {
+    const productosFormateados = productosSeleccionados.map((producto) => ({
+      producto_id: producto.id,
+      observaciones:
+        producto.observaciones ?? producto.pivot?.observaciones ?? "",
+    }));
+
+    if (nuevoCliente) {
+      crearCliente(nuevoCliente);
+      cliente = nuevoCliente;
+    }
+
+    const nuevoPedido = {
+      cliente_telefono: cliente.telefono,
+      formaDeEncargo: formaDeEncargo,
+      productos: productosFormateados,
+    };
+    crearPedido(nuevoPedido);
+    setisModalFinalizarOpen(false);
+    setIndiceProductoPulsado(null);
+    navegar("/pedidos");
+  }
+
+  return (
+    &lt;ModalGeneral
+      isModalOpen={isModalFinalizarOpen}
+      setisModalOpen={setisModalFinalizarOpen}
+      alCerrar={() => setisModalFinalizarOpen(false)}
+    >
+      &lt;h2>Finalizar Pedido&lt;/h2>
+      &lt;p>Total: {total} €&lt;/p>
+      &lt;label>
+        Forma de encargo:
+        &lt;select
+          value={formaDeEncargo}
+          onChange={(e) => setFormaDeEncargo(e.target.value)}
+        >
+          &lt;option value="Domicilio">Domicilio&lt;/option>
+          &lt;option value="Recoger">Recoger&lt;/option>
+        &lt;/select>
+      &lt;/label>
+      &lt;p>¿Estás seguro de que deseas finalizar el pedido?&lt;/p>
+      &lt;button onClick={onConfirm}>Sí, finalizar&lt;/button>
+    &lt;/ModalGeneral>
+  );
+};
+
+export default ModalFinalizarPedido;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AnyadirProductos">AnyadirProductos</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#BarraProductosParaPedido">BarraProductosParaPedido</a></li><li><a href="global.html#Cargando">Cargando</a></li><li><a href="global.html#Empleados">Empleados</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderGeneral">HeaderGeneral</a></li><li><a href="global.html#HeaderProductos">HeaderProductos</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#ListaProductos">ListaProductos</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#ModalCrearCliente">ModalCrearCliente</a></li><li><a href="global.html#ModalFinalizarPedido">ModalFinalizarPedido</a></li><li><a href="global.html#ModalGeneral">ModalGeneral</a></li><li><a href="global.html#ModalObservaciones">ModalObservaciones</a></li><li><a href="global.html#NavbarGeneral">NavbarGeneral</a></li><li><a href="global.html#Pedidos">Pedidos</a></li><li><a href="global.html#Producto">Producto</a></li><li><a href="global.html#Productos">Productos</a></li><li><a href="global.html#ProveedorProductos">ProveedorProductos</a></li><li><a href="global.html#Rutas">Rutas</a></li><li><a href="global.html#Sesion">Sesion</a></li><li><a href="global.html#Terraza">Terraza</a></li><li><a href="global.html#crearProducto">crearProducto</a></li><li><a href="global.html#eliminarProducto">eliminarProducto</a></li><li><a href="global.html#existeClientesYProductos">existeClientesYProductos</a></li><li><a href="global.html#getProductos">getProductos</a></li><li><a href="global.html#handleObservaciones">handleObservaciones</a></li><li><a href="global.html#isFormValido">isFormValido</a></li><li><a href="global.html#isTelefonoDeCliente">isTelefonoDeCliente</a></li><li><a href="global.html#isTelefonoValido">isTelefonoValido</a></li><li><a href="global.html#manejarClick">manejarClick</a></li><li><a href="global.html#manejarEnvio">manejarEnvio</a></li><li><a href="global.html#modificarProducto">modificarProducto</a></li><li><a href="global.html#onConfirm">onConfirm</a></li><li><a href="global.html#patronTelefono">patronTelefono</a></li><li><a href="global.html#siHayClientes">siHayClientes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jun 01 2025 16:17:30 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

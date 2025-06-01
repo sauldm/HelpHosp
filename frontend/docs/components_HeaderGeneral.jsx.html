@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/HeaderGeneral.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/HeaderGeneral.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useNavigate } from "react-router-dom";
+import ModalGeneral from "./ModalGeneral";
+import { useState } from "react";
+
+/**
+ * @component HeaderGeneral
+ * @description Componente de encabezado general que proporciona navegación a diferentes
+ * secciones de pedidos (teléfono, terraza, barra) y gestión de productos.
+ * Incluye un modal para la entrada de números de teléfono en pedidos telefónicos.
+ * 
+ * @returns {JSX.Element} Retorna el componente de encabezado con botones de navegación
+ * y un modal para pedidos telefónicos.
+ */
+const HeaderGeneral = () => {
+  /**
+   * @state {boolean} isModalTelefonoOpen - Controla la visibilidad del modal de teléfono
+   * @state {string} telefono - Almacena el número de teléfono ingresado
+   */
+  const [isModalTelefonoOpen, setisModalTelefonoOpen] = useState(false);
+  const [telefono, setTelefono] = useState("");
+  const navigate = useNavigate();
+  
+  /** @constant {RegExp} patronTelefono - Expresión regular para validar números de teléfono de 9 dígitos */
+  const patronTelefono = /^[0-9]{9}$/;
+
+  /**
+   * @function isTelefonoValido
+   * @description Valida si el número de teléfono ingresado cumple con el patrón requerido
+   * @returns {boolean} Retorna true si el teléfono es válido, false en caso contrario
+   */
+  function isTelefonoValido() {
+    return patronTelefono.test(telefono);
+  }
+
+  return (
+    &lt;>
+      &lt;header>
+        &lt;div className="headerContainer">
+          &lt;div className="header-group">
+            &lt;button 
+              onClick={() => setisModalTelefonoOpen(true)}
+              className="header-button"
+            >
+              &lt;span className="icon">📞&lt;/span>
+              &lt;span className="text">Pedido Teléfono&lt;/span>
+            &lt;/button>
+            &lt;button 
+              onClick={() => navigate("/terraza")}
+              className="header-button"
+            >
+              &lt;span className="icon">🌳&lt;/span>
+              &lt;span className="text">Pedido Terraza&lt;/span>
+            &lt;/button>
+            &lt;button 
+              onClick={() => navigate("/barra")}
+              className="header-button"
+            >
+              &lt;span className="icon">🍺&lt;/span>
+              &lt;span className="text">Pedido Barra&lt;/span>
+            &lt;/button>
+          &lt;/div>
+          
+          &lt;button
+            className="header-button add-products"
+            onClick={() => navigate("/anyadirProductos")}
+          >
+            &lt;span className="icon">➕&lt;/span>
+            &lt;span className="text">Productos&lt;/span>
+          &lt;/button>
+        &lt;/div>
+
+        &lt;ModalGeneral
+          isModalOpen={isModalTelefonoOpen}
+          setisModalOpen={setisModalTelefonoOpen}
+        >
+          &lt;form
+            className="phone-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (isTelefonoValido()) {
+                setisModalTelefonoOpen(false);
+                navigate("productos/" + telefono);
+              }
+            }}
+          >
+            &lt;div className="form-group">
+              &lt;label htmlFor="telefono">Número de teléfono:&lt;/label>
+              &lt;input
+                id="telefono"
+                type="tel"
+                pattern="[0-9]{9}"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+                placeholder="Introduce 9 dígitos"
+                required
+              />
+            &lt;/div>
+            &lt;button type="submit" className="submit-button">
+              Continuar
+            &lt;/button>
+          &lt;/form>
+        &lt;/ModalGeneral>
+      &lt;/header>
+    &lt;/>
+  );
+};
+
+export default HeaderGeneral;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AnyadirProductos">AnyadirProductos</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#BarraProductosParaPedido">BarraProductosParaPedido</a></li><li><a href="global.html#Cargando">Cargando</a></li><li><a href="global.html#Empleados">Empleados</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderGeneral">HeaderGeneral</a></li><li><a href="global.html#HeaderProductos">HeaderProductos</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#ListaProductos">ListaProductos</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#ModalCrearCliente">ModalCrearCliente</a></li><li><a href="global.html#ModalFinalizarPedido">ModalFinalizarPedido</a></li><li><a href="global.html#ModalGeneral">ModalGeneral</a></li><li><a href="global.html#ModalObservaciones">ModalObservaciones</a></li><li><a href="global.html#NavbarGeneral">NavbarGeneral</a></li><li><a href="global.html#Pedidos">Pedidos</a></li><li><a href="global.html#Producto">Producto</a></li><li><a href="global.html#Productos">Productos</a></li><li><a href="global.html#ProveedorProductos">ProveedorProductos</a></li><li><a href="global.html#Rutas">Rutas</a></li><li><a href="global.html#Sesion">Sesion</a></li><li><a href="global.html#Terraza">Terraza</a></li><li><a href="global.html#crearProducto">crearProducto</a></li><li><a href="global.html#eliminarProducto">eliminarProducto</a></li><li><a href="global.html#existeClientesYProductos">existeClientesYProductos</a></li><li><a href="global.html#getProductos">getProductos</a></li><li><a href="global.html#handleObservaciones">handleObservaciones</a></li><li><a href="global.html#isFormValido">isFormValido</a></li><li><a href="global.html#isTelefonoDeCliente">isTelefonoDeCliente</a></li><li><a href="global.html#isTelefonoValido">isTelefonoValido</a></li><li><a href="global.html#manejarClick">manejarClick</a></li><li><a href="global.html#manejarEnvio">manejarEnvio</a></li><li><a href="global.html#modificarProducto">modificarProducto</a></li><li><a href="global.html#onConfirm">onConfirm</a></li><li><a href="global.html#patronTelefono">patronTelefono</a></li><li><a href="global.html#siHayClientes">siHayClientes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jun 01 2025 16:17:30 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

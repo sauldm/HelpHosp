@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ModalGeneral.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ModalGeneral.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
+
+/**
+ * @component ModalGeneral
+ * @description Componente de modal reutilizable que proporciona una ventana modal
+ * con funcionalidad de cierre y contenido personalizable.
+ * 
+ * @param {Object} props - Propiedades del componente
+ * @param {boolean} props.isModalOpen - Estado que controla si el modal está abierto o cerrado
+ * @param {Function} props.setisModalOpen - Función para actualizar el estado de apertura del modal
+ * @param {React.ReactNode} props.children - Contenido que se renderizará dentro del modal
+ * @param {Function} [props.alCerrar] - Función opcional que se ejecuta al cerrar el modal
+ * 
+ * @returns {JSX.Element} Retorna un componente Modal con estructura y estilos predefinidos
+ */
+const ModalGeneral = ({ isModalOpen, setisModalOpen, children, alCerrar }) => {
+  const navegar = useNavigate();
+  return (
+    &lt;>
+      &lt;Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => {
+          setisModalOpen(false);
+          alCerrar ? alCerrar() : null;
+        }}
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        &lt;div className="modal-content">
+          &lt;div className="modal-header">
+            &lt;button
+              className="modal-close"
+              onClick={() => {
+                setisModalOpen(false);
+                alCerrar ? alCerrar() : null;
+              }}
+            >
+              ✕
+            &lt;/button>
+          &lt;/div>
+          &lt;div className="modal-body">
+            {children}
+          &lt;/div>
+        &lt;/div>
+      &lt;/Modal>
+    &lt;/>
+  );
+};
+
+export default ModalGeneral;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AnyadirProductos">AnyadirProductos</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#BarraProductosParaPedido">BarraProductosParaPedido</a></li><li><a href="global.html#Cargando">Cargando</a></li><li><a href="global.html#Empleados">Empleados</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderGeneral">HeaderGeneral</a></li><li><a href="global.html#HeaderProductos">HeaderProductos</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#ListaProductos">ListaProductos</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#ModalCrearCliente">ModalCrearCliente</a></li><li><a href="global.html#ModalFinalizarPedido">ModalFinalizarPedido</a></li><li><a href="global.html#ModalGeneral">ModalGeneral</a></li><li><a href="global.html#ModalObservaciones">ModalObservaciones</a></li><li><a href="global.html#NavbarGeneral">NavbarGeneral</a></li><li><a href="global.html#Pedidos">Pedidos</a></li><li><a href="global.html#Producto">Producto</a></li><li><a href="global.html#Productos">Productos</a></li><li><a href="global.html#ProveedorProductos">ProveedorProductos</a></li><li><a href="global.html#Rutas">Rutas</a></li><li><a href="global.html#Sesion">Sesion</a></li><li><a href="global.html#Terraza">Terraza</a></li><li><a href="global.html#crearProducto">crearProducto</a></li><li><a href="global.html#eliminarProducto">eliminarProducto</a></li><li><a href="global.html#existeClientesYProductos">existeClientesYProductos</a></li><li><a href="global.html#getProductos">getProductos</a></li><li><a href="global.html#handleObservaciones">handleObservaciones</a></li><li><a href="global.html#isFormValido">isFormValido</a></li><li><a href="global.html#isTelefonoDeCliente">isTelefonoDeCliente</a></li><li><a href="global.html#isTelefonoValido">isTelefonoValido</a></li><li><a href="global.html#manejarClick">manejarClick</a></li><li><a href="global.html#manejarEnvio">manejarEnvio</a></li><li><a href="global.html#modificarProducto">modificarProducto</a></li><li><a href="global.html#onConfirm">onConfirm</a></li><li><a href="global.html#patronTelefono">patronTelefono</a></li><li><a href="global.html#siHayClientes">siHayClientes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jun 01 2025 16:17:30 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
