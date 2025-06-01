@@ -5,7 +5,7 @@ import Cargando from "./Cargando";
 import ContextoPedidos from "./contexto/ContextoPedidos";
 
 const ListaPedidos = () => {
-  const { pedidos, getPedido } = useContext(ContextoPedidos);
+  const { pedidos, getPedido, eliminarPedido } = useContext(ContextoPedidos);
   const [isModalPedidoOpen, setisModalPedidoOpen] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
 
@@ -42,6 +42,10 @@ const ListaPedidos = () => {
         titulo={`Pedido #${selectedPedido?.id || ''}`}
       >
         <Pedido />
+        <button onClick={() =>{
+          eliminarPedido(selectedPedido);
+          setisModalPedidoOpen(false);
+        }}>Aceptar</button>
       </ModalGeneral>
     </>
   );
