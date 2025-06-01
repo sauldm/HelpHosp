@@ -4,7 +4,28 @@ import { useContext, useEffect, useState } from "react";
 import ContextoProductos from "./contexto/ContextoProductos";
 import ModalObservaciones from "./ModalObservaciones";
 
+/**
+ * @component HeaderProductos
+ * @description Componente de encabezado para la página de productos que proporciona
+ * funcionalidades para gestionar productos seleccionados, incluyendo eliminación,
+ * observaciones, búsqueda y finalización de pedido.
+ * 
+ * @param {Object} props - Propiedades del componente
+ * @param {Object} props.cliente - Información del cliente actual
+ * @param {Object} props.nuevoCliente - Información del nuevo cliente si se está creando uno
+ * 
+ * @returns {JSX.Element} Retorna el encabezado con controles para gestionar productos
+ */
 const HeaderProductos = ({ cliente, nuevoCliente }) => {
+  /**
+   * @context ContextoProductos
+   * @property {Array} productosSeleccionados - Lista de productos seleccionados
+   * @property {Function} setProductosSeleccionados - Función para actualizar productos seleccionados
+   * @property {number} indiceProductoPulsado - Índice del producto actualmente seleccionado
+   * @property {Function} setIndiceProductoPulsado - Función para actualizar el índice seleccionado
+   * @property {Function} setProductosASeleccionar - Función para actualizar la lista de productos disponibles
+   * @property {Array} productos - Lista completa de productos
+   */
   const {
     productosSeleccionados,
     setProductosSeleccionados,
@@ -13,12 +34,22 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
     setProductosASeleccionar,
     productos,
   } = useContext(ContextoProductos);
+
+  /**
+   * @state {boolean} isModalFinalizarOpen - Controla la visibilidad del modal de finalización
+   * @state {boolean} isModalObservacionesOpen - Controla la visibilidad del modal de observaciones
+   * @state {string} palabraABuscar - Término de búsqueda para filtrar productos
+   */
   const [isModalFinalizarOpen, setisModalFinalizarOpen] = useState(false);
-  const [isModalObservacionesOpen, setIsModalObservacionesOpen] =
-    useState(false);
+  const [isModalObservacionesOpen, setIsModalObservacionesOpen] = useState(false);
   const navigate = useNavigate();
   const [palabraABuscar, setPalabraABuscar] = useState("");
 
+  /**
+   * @function eliminarProducto
+   * @description Elimina un producto de la lista de seleccionados
+   * @param {number} indice - Índice del producto a eliminar
+   */
   const eliminarProducto = (indice) => {
     setProductosSeleccionados((prevProductos) =>
       prevProductos.filter((producto, index) => index !== indice)
@@ -26,6 +57,10 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
     setIndiceProductoPulsado(null);
   };
 
+  /**
+   * @effect
+   * @description Efecto que filtra los productos según el término de búsqueda
+   */
   useEffect(() => {
     setProductosASeleccionar(
       palabraABuscar != ""
@@ -36,6 +71,11 @@ const HeaderProductos = ({ cliente, nuevoCliente }) => {
     );
   }, [palabraABuscar]);
 
+  /**
+   * @function handleObservaciones
+   * @description Maneja la actualización de observaciones para un producto seleccionado
+   * @param {string} obs - Texto de las observaciones
+   */
   const handleObservaciones = (obs) => {
     if (indiceProductoPulsado === null) return;
     const nuevosProductos = productosSeleccionados.map((producto, idx) =>

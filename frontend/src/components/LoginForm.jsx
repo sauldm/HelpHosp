@@ -1,3 +1,11 @@
+/**
+ * @component LoginForm
+ * @description Formulario de inicio de sesión que incluye campos para correo electrónico
+ * y contraseña, además de enlaces para recuperación de contraseña y registro de nuevos usuarios.
+ * El formulario incluye validación básica de campos requeridos y formato de correo electrónico.
+ * 
+ * @returns {JSX.Element} Retorna un formulario de inicio de sesión con campos y enlaces relacionados
+ */
 const LoginForm = () => {
   return (
     <form className="loginForm">
