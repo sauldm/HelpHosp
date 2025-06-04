@@ -222,6 +222,21 @@ header {
   z-index: 1;
 }
 
+.contenido .btnCrearProducto {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary-color);
+  color: var(--text-light);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+
+}
+
 /* Empleados */
 .empleados {
   width: 280px;
@@ -576,7 +591,7 @@ footer {
   width: 100%;
   padding: 12px;
   background: var(--primary-color);
-  color: var(--text-light);
+  color: var(--text-ligft);
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -750,7 +765,7 @@ footer {
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
   padding: 16px;
-  margin: -16px;
+  margin-top: 16px;
   max-width: 100%;
   overflow: auto;
 }

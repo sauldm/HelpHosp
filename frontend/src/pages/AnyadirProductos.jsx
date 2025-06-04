@@ -28,7 +28,7 @@ function AnyadirProductos() {
       <div className="body">
         <NavbarGeneral />
         <div className="contenido">
-          <button
+          <button className="btnCrearProducto"
             onClick={() => setisModalProductoOpen(true)}
           >
             Añadir Producto

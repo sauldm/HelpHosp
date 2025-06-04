@@ -1,0 +1,19 @@
+{
+  "name": "helphosp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "docker-compose up"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sauldm/HelpHosp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sauldm/HelpHosp/issues"
+  },
+  "homepage": "https://github.com/sauldm/HelpHosp#readme",
+  "description": ""
+}

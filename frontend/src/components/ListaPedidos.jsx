@@ -42,10 +42,10 @@ const ListaPedidos = () => {
         titulo={`Pedido #${selectedPedido?.id || ''}`}
       >
         <Pedido />
-        <button onClick={() =>{
+        <button className="submit-button" onClick={() =>{
           eliminarPedido(selectedPedido);
           setisModalPedidoOpen(false);
-        }}>Aceptar</button>
+        }}>Finalizar Pedido</button>
       </ModalGeneral>
     </>
   );
