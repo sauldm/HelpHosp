@@ -16,7 +16,7 @@ COPY . .
 # Instalar dependencias de Laravel
 RUN composer install --no-dev --optimize-autoloader
 RUN php artisan config:cache
-RUN php artisan migrate:fresh --seed
+RUN php artisan migrate
 
 EXPOSE 8000
 CMD ["php","artisan","serve","--host=0.0.0.0","--port=8000"]
